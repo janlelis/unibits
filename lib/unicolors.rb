@@ -8,7 +8,7 @@ module Unicolors
   def self.of(string)
 
     case string.encoding.name
-    when 'UTF-8', 'UTF-16LE', 'UTF-16BE', 'UTF-32LE', 'UTF-32BE'
+    when 'US-ASCII', 'ASCII-8BIT', 'UTF-8', 'UTF-16LE', 'UTF-16BE', 'UTF-32LE', 'UTF-32BE'
       visualize(string)
     else
       raise ArgumentError, "Unicolor does not support strings of encoding #{string.encoding}"
@@ -39,13 +39,16 @@ module Unicolors
 
         if index == 0
           cp_buffer[-1] << Paint[
-            ("U+%04X"%char.ord).ljust(10), current_color, :bold
+            ("U+%04X" % char.ord).ljust(10), current_color, :bold
           ]
 
-          symbolified_char = symbolify(char).encode('UTF-8')
+          symbolified_char = symbolify(char)
+          padding = 10-Unicode::DisplayWidth.of(symbolified_char)
+
           enc_buffer[-1] << Paint[
             symbolified_char, current_color
-          ] << " "*(10-Unicode::DisplayWidth.of(symbolified_char))
+          ]
+          enc_buffer[-1] << " " * padding if padding > 0
         else
           cp_buffer[-1]  << " "*10
           enc_buffer[-1] << " "*10
@@ -58,6 +61,12 @@ module Unicolors
         bin_byte_complete = byte.to_s(2).rjust(8, "0")
 
         case string.encoding.name
+        when 'US-ASCII'
+          bin_byte_1 = bin_byte_complete[0...1]
+          bin_byte_2 = bin_byte_complete[1...8]
+        when 'ASCII-8BIT'
+          bin_byte_1 = ""
+          bin_byte_2 = bin_byte_complete
         when 'UTF-8'
           if index == 0
             if bin_byte_complete =~ /^(0|1{2,4}0)([01]+)$/
@@ -95,24 +104,31 @@ module Unicolors
         end
         bin_buffer[-1] << Paint[
           bin_byte_1, current_color
-        ] unless bin_byte_1.empty?
+        ] unless !bin_byte_1 || bin_byte_1.empty?
         bin_buffer[-1] << Paint[
           bin_byte_2, current_color, :underline
-        ] unless bin_byte_2.empty?
+        ] unless !bin_byte_2 || bin_byte_2.empty?
         bin_buffer[-1] << "  "
       }
     }
-    puts enc_buffer.zip(cp_buffer, hex_buffer, bin_buffer, separator).flatten.join("\n")
+
+    if string.encoding.name[0, 3] == "UTF"
+      puts enc_buffer.zip(cp_buffer, hex_buffer, bin_buffer, separator).flatten.join("\n")
+    else
+      puts enc_buffer.zip(hex_buffer, bin_buffer, separator).flatten.join("\n")
+    end
   end
 
   def self.random_color
-      "%.2x%.2x%.2x" %[rand(90) + 60, rand(90) + 60, rand(90) + 60]
+    "%.2x%.2x%.2x" %[rand(90) + 60, rand(90) + 60, rand(90) + 60]
   end
 
   def self.symbolify(char)
+    return char.inspect unless char.encoding.name[0, 3] == "UTF"
     char
       .gsub(" ".encode(char.encoding), "␣".encode(char.encoding))
       .tr("\0-\x31".encode(char.encoding), "\u{2400}-\u{241f}".encode(char.encoding))
+      .encode('UTF-8')
   end
 end
 
