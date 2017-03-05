@@ -5,17 +5,36 @@ require "paint"
 require "unicode/display_width"
 
 module Unibits
-  def self.of(string)
+  SUPPORTED_ENCODINGS = [
+    'UTF-8',
+    'UTF-16LE',
+    'UTF-16BE',
+    'UTF-32LE',
+    'UTF-32BE',
+    'ASCII-8BIT',
+    'US-ASCII',
+  ].freeze
+
+  def self.of(string, encoding: nil, convert: nil)
+    if !string || string.empty?
+      raise ArgumentError, "no data given to unibits"
+    end
+
+    string.force_encoding(encoding) if encoding
+    string = string.encode(convert) if convert
+
     case string.encoding.name
-    when 'US-ASCII', 'ASCII-8BIT', 'UTF-8', 'UTF-16LE', 'UTF-16BE', 'UTF-32LE', 'UTF-32BE'
+    when *SUPPORTED_ENCODINGS
       puts visualize(string)
+    when 'UTF-16', 'UTF-32'
+      raise ArgumentError, "unibits only supports #{string.encoding.name} with specified endianess, please use #{string.encoding.name}LE or #{string.encoding.name}BE"
     else
-      raise ArgumentError, "Unicolor does not support strings of encoding #{string.encoding}"
+      raise ArgumentError, "unibits does not support strings of encoding #{string.encoding}"
     end
   end
 
   def self.visualize(string)
-    cols = STDIN.winsize[1] || 80
+    cols = determine_terminal_cols
 
     cp_buffer  = ["  "]
     enc_buffer = ["  "]
@@ -131,5 +150,18 @@ module Unibits
         ']\0['.encode(char.encoding)
       )
       .encode('UTF-8')
+  end
+
+  def self.determine_terminal_cols
+    cols = STDIN.winsize[1] || 80
+  rescue Errno::ENOTTY
+    return 80
+  end
+
+  def self.help
+    puts "Till there is a proper help command implemented, more info at:"
+    puts "- https://github.com/janlelis/unibits"
+    puts
+    puts "Supported encodings: #{SUPPORTED_ENCODINGS.join(', ')}"
   end
 end

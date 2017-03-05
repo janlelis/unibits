@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require "rationalist"
+require "unibits"
+
+argv = Rationalist.parse(
+  ARGV,
+  alias: {
+    e: 'encoding',
+    c: 'convert',
+    v: 'version',
+  },
+  boolean: [
+    'help',
+    'version',
+  ]
+)
+
+if argv[:version]
+  puts Unibits::VERSION
+  exit(0)
+end
+
+if argv[:help]
+  puts Unibits.help
+  exit(0)
+end
+
+if argv[:_] && argv[:_][0]
+  data = argv[:_][0]
+elsif !$stdin.tty?
+  data = $stdin.read
+else
+  data = nil
+end
+
+Unibits.of(data, encoding: argv[:encoding], convert: argv[:convert])
