@@ -101,6 +101,7 @@ Also see
 - [UTF-16 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-16#Description)
 - [UTF-32 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-32)
 - [Ruby's Encoding class](https://ruby-doc.org/core/Encoding.html)
+- [Difference between BINARY and ASCII](http://idiosyncratic-ruby.com/56-us-ascii-8bit.html)
 - [Unicode Micro Libraries for Ruby](https://github.com/janlelis/unicode-x)
 
 Lots of thanks to @damienklinnert for the motivation and inspiration required to build this! 🎆
