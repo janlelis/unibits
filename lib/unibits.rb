@@ -25,6 +25,10 @@ module Unibits
 
     case string.encoding.name
     when *SUPPORTED_ENCODINGS
+      unless string.valid_encoding?
+        raise ArgumentError, "the data given is not valid #{string.encoding.name}"
+      end
+
       puts stats(string) if stats
       puts visualize(string)
     when 'UTF-16', 'UTF-32'
