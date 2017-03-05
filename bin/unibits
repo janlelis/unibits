@@ -13,7 +13,11 @@ argv = Rationalist.parse(
   boolean: [
     'help',
     'version',
-  ]
+    'stats'
+  ],
+  default: {
+    stats: true
+  }
 )
 
 if argv[:version]
@@ -22,7 +26,18 @@ if argv[:version]
 end
 
 if argv[:help]
-  puts Unibits.help
+  puts <<-HELP
+
+  #{Paint["USAGE", :underline]}
+
+  #{Paint["unibits", :bold]} [--encoding <encoding>] [--convert <encoding>] [--no-stats] data
+
+  Supported encodings: #{Unibits::SUPPORTED_ENCODINGS.join(', ')}
+  Explanation of stats: bytes / codepoints / glyphs / expected terminal width
+
+  More info and examples at: https://github.com/janlelis/unibits
+
+  HELP
   exit(0)
 end
 
@@ -34,4 +49,4 @@ else
   data = nil
 end
 
-Unibits.of(data, encoding: argv[:encoding], convert: argv[:convert])
+Unibits.of(data, encoding: argv[:encoding], convert: argv[:convert], stats: argv[:stats])

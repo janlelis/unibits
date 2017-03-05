@@ -15,7 +15,7 @@ module Unibits
     'US-ASCII',
   ].freeze
 
-  def self.of(string, encoding: nil, convert: nil)
+  def self.of(string, encoding: nil, convert: nil, stats: true)
     if !string || string.empty?
       raise ArgumentError, "no data given to unibits"
     end
@@ -25,12 +25,22 @@ module Unibits
 
     case string.encoding.name
     when *SUPPORTED_ENCODINGS
+      puts stats(string) if stats
       puts visualize(string)
     when 'UTF-16', 'UTF-32'
       raise ArgumentError, "unibits only supports #{string.encoding.name} with specified endianess, please use #{string.encoding.name}LE or #{string.encoding.name}BE"
     else
       raise ArgumentError, "unibits does not support strings of encoding #{string.encoding}"
     end
+  end
+
+  def self.stats(string)
+    "\n  " \
+    "#{Paint[string.encoding.name, :bold]} (" \
+    "#{string.bytesize}/" \
+    "#{string.size}/" \
+    "#{string.scan(Regexp.compile('\X'.encode(string.encoding))).size}/" \
+    "#{Unicode::DisplayWidth.of(string)})"
   end
 
   def self.visualize(string)
@@ -153,15 +163,8 @@ module Unibits
   end
 
   def self.determine_terminal_cols
-    cols = STDIN.winsize[1] || 80
+    STDIN.winsize[1] || 80
   rescue Errno::ENOTTY
     return 80
-  end
-
-  def self.help
-    puts "Till there is a proper help command implemented, more info at:"
-    puts "- https://github.com/janlelis/unibits"
-    puts
-    puts "Supported encodings: #{SUPPORTED_ENCODINGS.join(', ')}"
   end
 end
