@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.name          = "unibits"
   gem.version       = Unibits::VERSION
   gem.summary       = "Visualizes Unicode encodings."
-  gem.description   = "Visualizes Unicode encodings in the terminal. Supports UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF32BE, US-ASCII, and ASCII-8BIT"
+  gem.description   = "Visualizes Unicode encodings in the terminal. Supports UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF-32BE, US-ASCII, and ASCII-8BIT. Comes as CLI command and as Ruby Kernel method."
   gem.authors       = ["Jan Lelis"]
   gem.email         = ["mail@janlelis.de"]
   gem.homepage      = "https://github.com/janlelis/unibits"
