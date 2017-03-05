@@ -5,6 +5,7 @@ require "unibits"
 
 argv = Rationalist.parse(
   ARGV,
+  string: '_',
   alias: {
     e: 'encoding',
     c: 'convert',
@@ -17,7 +18,7 @@ argv = Rationalist.parse(
   ],
   default: {
     stats: true
-  }
+  },
 )
 
 if argv[:version]
@@ -49,4 +50,9 @@ else
   data = nil
 end
 
-Unibits.of(data, encoding: argv[:encoding], convert: argv[:convert], stats: argv[:stats])
+begin
+  Unibits.of(data, encoding: argv[:encoding], convert: argv[:convert], stats: argv[:stats])
+rescue ArgumentError
+  $stderr.puts Paint[$!.message, :red]
+  exit(1)
+end
