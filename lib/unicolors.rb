@@ -6,10 +6,9 @@ require 'unicode/display_width'
 
 module Unicolors
   def self.of(string)
-
     case string.encoding.name
     when 'US-ASCII', 'ASCII-8BIT', 'UTF-8', 'UTF-16LE', 'UTF-16BE', 'UTF-32LE', 'UTF-32BE'
-      visualize(string)
+      puts visualize(string)
     else
       raise ArgumentError, "Unicolor does not support strings of encoding #{string.encoding}"
     end
@@ -96,7 +95,7 @@ module Unicolors
           else
             bin_byte_complete =~ /^(11011[01])([01]+)$/
             bin_byte_1 = $1
-            bin_byte_2 = $2 
+            bin_byte_2 = $2
           end
         when 'UTF-32LE', 'UTF-32BE'
           bin_byte_1 = ""
@@ -113,9 +112,9 @@ module Unicolors
     }
 
     if string.encoding.name[0, 3] == "UTF"
-      puts enc_buffer.zip(cp_buffer, hex_buffer, bin_buffer, separator).flatten.join("\n")
+      enc_buffer.zip(cp_buffer, hex_buffer, bin_buffer, separator).flatten.join("\n")
     else
-      puts enc_buffer.zip(hex_buffer, bin_buffer, separator).flatten.join("\n")
+      enc_buffer.zip(hex_buffer, bin_buffer, separator).flatten.join("\n")
     end
   end
 
@@ -126,9 +125,11 @@ module Unicolors
   def self.symbolify(char)
     return char.inspect unless char.encoding.name[0, 3] == "UTF"
     char
-      .gsub(" ".encode(char.encoding), "␣".encode(char.encoding))
-      .tr("\0-\x31".encode(char.encoding), "\u{2400}-\u{241f}".encode(char.encoding))
+      .tr("\x00-\x1F".encode(char.encoding), "\u{2400}-\u{241F}".encode(char.encoding))
+      .gsub(
+        Regexp.compile('[\p{Space}᠎​‌‍⁠﻿]'.encode(char.encoding)),
+        ']\0['.encode(char.encoding)
+      )
       .encode('UTF-8')
   end
 end
-
