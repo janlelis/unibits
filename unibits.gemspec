@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 
-require File.dirname(__FILE__) + "/lib/unicolors/version"
+require File.dirname(__FILE__) + "/lib/unibits/version"
 
 Gem::Specification.new do |gem|
-  gem.name          = "unicolors"
-  gem.version       = Unicolors::VERSION
+  gem.name          = "unibits"
+  gem.version       = Unibits::VERSION
   gem.summary       = "Visualizes Unicode encodings."
-  gem.description   = "Visualizes Unicode encodings in the terminal."
+  gem.description   = "Visualizes Unicode encodings in the terminal. Supports UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF32BE, US-ASCII, and ASCII-8BIT"
   gem.authors       = ["Jan Lelis"]
   gem.email         = ["mail@janlelis.de"]
-  gem.homepage      = "https://github.com/janlelis/unicolors"
+  gem.homepage      = "https://github.com/janlelis/unibits"
   gem.license       = "MIT"
 
   gem.files         = Dir["{**/}{.*,*}"].select{ |path| File.file?(path) && path !~ /^pkg/ }

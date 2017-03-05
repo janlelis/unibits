@@ -1,10 +1,10 @@
-require_relative "unicolors/version"
+require_relative "unibits/version"
 
-require 'io/console'
-require 'paint'
-require 'unicode/display_width'
+require "io/console"
+require "paint"
+require "unicode/display_width"
 
-module Unicolors
+module Unibits
   def self.of(string)
     case string.encoding.name
     when 'US-ASCII', 'ASCII-8BIT', 'UTF-8', 'UTF-16LE', 'UTF-16BE', 'UTF-32LE', 'UTF-32BE'
@@ -42,15 +42,15 @@ module Unicolors
           ]
 
           symbolified_char = symbolify(char)
-          padding = 10-Unicode::DisplayWidth.of(symbolified_char)
+          padding = 10 - Unicode::DisplayWidth.of(symbolified_char)
 
           enc_buffer[-1] << Paint[
             symbolified_char, current_color
           ]
           enc_buffer[-1] << " " * padding if padding > 0
         else
-          cp_buffer[-1]  << " "*10
-          enc_buffer[-1] << " "*10
+          cp_buffer[-1]  << " " * 10
+          enc_buffer[-1] << " " * 10
         end
 
         hex_buffer[-1] << Paint[

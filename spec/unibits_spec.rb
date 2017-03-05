@@ -1,10 +1,10 @@
-require_relative "../lib/unicolors/kernel_method"
+require_relative "../lib/unibits/kernel_method"
 require "minitest/autorun"
 
-describe Unicolors do
+describe Unibits do
   it "will not work for unsupported encodings" do
     proc{
-      Unicolors.of("string".encode("UTF-32"))
+      Unibits.of("string".encode("UTF-32"))
     }.must_raise ArgumentError
   end
 
@@ -12,7 +12,7 @@ describe Unicolors do
     let(:string){ "🌫 Idio﻿syncrätic ℜսᖯʏ" }
 
     it "works with UTF-8" do
-      result = Paint.unpaint(Unicolors.visualize(string))
+      result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "ℜ"
       result.must_match "U+211C"
       result.must_match /E2.*84.*9C/m
@@ -20,7 +20,7 @@ describe Unicolors do
     end
 
     it "works with UTF-16LE" do
-      result = Paint.unpaint(Unicolors.visualize(string.encode('UTF-16LE')))
+      result = Paint.unpaint(Unibits.visualize(string.encode('UTF-16LE')))
       result.must_match "ℜ"
       result.must_match "U+211C"
       result.must_match /1C.*21/m
@@ -28,7 +28,7 @@ describe Unicolors do
     end
 
     it "works with UTF-16BE" do
-      result = Paint.unpaint(Unicolors.visualize(string.encode('UTF-16BE')))
+      result = Paint.unpaint(Unibits.visualize(string.encode('UTF-16BE')))
       result.must_match "ℜ"
       result.must_match "U+211C"
       result.must_match /21.*1C/m
@@ -36,7 +36,7 @@ describe Unicolors do
     end
 
     it "works with UTF-32LE" do
-      result = Paint.unpaint(Unicolors.visualize(string.encode('UTF-32LE')))
+      result = Paint.unpaint(Unibits.visualize(string.encode('UTF-32LE')))
       result.must_match "ℜ"
       result.must_match "U+211C"
       result.must_match /1C.*21.*00.*00/m
@@ -44,7 +44,7 @@ describe Unicolors do
     end
 
     it "works with UTF-32BE" do
-      result = Paint.unpaint(Unicolors.visualize(string.encode('UTF-32BE')))
+      result = Paint.unpaint(Unibits.visualize(string.encode('UTF-32BE')))
       result.must_match "ℜ"
       result.must_match "U+211C"
       result.must_match /00.*00.*21.*1C/m
@@ -52,7 +52,7 @@ describe Unicolors do
     end
 
     it "works with BINARY" do
-      result = Paint.unpaint(Unicolors.visualize(string.dup.force_encoding('BINARY')))
+      result = Paint.unpaint(Unibits.visualize(string.dup.force_encoding('BINARY')))
       # testing for the UTF-8 encoded "ℜ"
       result.must_match "\\xE2"
       result.must_match "\\x84"
@@ -61,7 +61,7 @@ describe Unicolors do
     end
 
     it "works with ASCII" do
-      result = Paint.unpaint(Unicolors.visualize("ASCII string".force_encoding('ASCII')))
+      result = Paint.unpaint(Unibits.visualize("ASCII string".force_encoding('ASCII')))
       result.must_match "C"
       result.must_match "43"
       result.must_match "01000011"

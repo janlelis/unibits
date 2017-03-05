@@ -1,4 +1,4 @@
-# unicolors [![[version]](https://badge.fury.io/rb/unicolors.svg)](http://badge.fury.io/rb/unicolors)  [![[travis]](https://travis-ci.org/janlelis/unicolors.svg)](https://travis-ci.org/janlelis/unicolors)
+# unibits [![[version]](https://badge.fury.io/rb/unibits.svg)](http://badge.fury.io/rb/unibits)  [![[travis]](https://travis-ci.org/janlelis/unibits.svg)](https://travis-ci.org/janlelis/unibits)
 
 TODO
 
@@ -8,15 +8,15 @@ TODO
 Add to your `Gemfile`:
 
 ```ruby
-gem 'unicolors'
+gem 'unibits'
 ```
 
 
 ## Usage
 
 ```ruby
-require 'unicolors/string_ext'
-"bla".unicolors
+require 'unibits/string_ext'
+"bla".unibits
 ```
 
 
