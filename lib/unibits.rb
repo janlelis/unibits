@@ -20,7 +20,7 @@ module Unibits
       raise ArgumentError, "no data given to unibits"
     end
 
-    string.force_encoding(encoding) if encoding
+    string = string.dup.force_encoding(encoding) if encoding
     string = string.encode(convert) if convert
 
     case string.encoding.name
