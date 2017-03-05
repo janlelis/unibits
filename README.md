@@ -47,33 +47,33 @@ Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 
 
 ### UTF-16LE
 
-CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+CLI: `$ unibits -e utf-8 -c utf-16le "🌫 Idio﻿syncrätic ℜսᖯʏ"`
 
-Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
+Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-16le'`
 
 ![Screenshot UTF-16LE](/screenshots/utf-16le.png?raw=true "UTF-16LE")
 
 ### UTF-16BE
 
-CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+CLI: `$ unibits -e utf-8 -c utf-16be "🌫 Idio﻿syncrätic ℜսᖯʏ"`
 
-Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
+Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-16be'`
 
 ![Screenshot UTF-16BE](/screenshots/utf-16be.png?raw=true "UTF-16BE")
 
 ### UTF-32LE
 
-CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+CLI: `$ unibits -e utf-8 -c utf-32le "🌫 Idio﻿syncrätic ℜսᖯʏ"`
 
-Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
+Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-32le'`
 
 ![Screenshot UTF-32LE](/screenshots/utf-32le.png?raw=true "UTF-32LE")
 
 ### UTF-32BE
 
-CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+CLI: `$ unibits -e utf-8 -c utf-32be "🌫 Idio﻿syncrätic ℜսᖯʏ"`
 
-Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
+Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-32be'`
 
 ![Screenshot UTF-32BE](/screenshots/utf-32be.png?raw=true "UTF-32BE")
 
