@@ -1,16 +1,10 @@
 # unibits [![[version]](https://badge.fury.io/rb/unibits.svg)](http://badge.fury.io/rb/unibits)  [![[travis]](https://travis-ci.org/janlelis/unibits.svg)](https://travis-ci.org/janlelis/unibits)
 
-Ruby library and CLI command that visualizes various Unicode and ASCII encodings in the terminal. Meant for debugging strings and learning about (Unicode) encodings.
+Ruby library and CLI command that visualizes various Unicode and ASCII encodings in the terminal.
 
-Supported encodings:
+Helps you debugging and learning about Unicode encodings.
 
-- UTF-8
-- UTF-16LE
-- UTF-16BE
-- UTF-32LE
-- UTF-32BE
-- BINARY
-- ASCII
+Supported encodings: **UTF-8**, **UTF-16LE**, **UTF-16BE**, **UTF-32LE**, **UTF-32BE**, **BINARY**, **ASCII**
 
 ## Setup
 
@@ -19,11 +13,10 @@ $ gem install unibits
 ```
 
 ## Usage
-
 ### From CLI
 
 ```
-unibits "🌫 Idio﻿syncrätic ℜսᖯʏ"
+$ unibits "🌫 Idio﻿syncrätic ℜսᖯʏ"
 ```
 
 ### From Ruby
@@ -46,49 +39,56 @@ unibits "🌫 Idio﻿syncrätic ℜսᖯʏ"
 ## Output for Different Encodings
 ### UTF-8
 
-CLI: `unibits -e utf-8 -c utf-8`
+CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+
 Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
 
 ![Screenshot UTF-8](/screenshots/utf-8.png?raw=true "UTF-8")
 
 ### UTF-16LE
 
-CLI: `unibits -e utf-8 -c utf-8`
+CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+
 Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
 
 ![Screenshot UTF-16LE](/screenshots/utf-16le.png?raw=true "UTF-16LE")
 
 ### UTF-16BE
 
-CLI: `unibits -e utf-8 -c utf-8`
+CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+
 Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
 
 ![Screenshot UTF-16BE](/screenshots/utf-16be.png?raw=true "UTF-16BE")
 
 ### UTF-32LE
 
-CLI: `unibits -e utf-8 -c utf-8`
+CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+
 Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
 
 ![Screenshot UTF-32LE](/screenshots/utf-32le.png?raw=true "UTF-32LE")
 
 ### UTF-32BE
 
-CLI: `unibits -e utf-8 -c utf-8`
+CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+
 Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-8'`
 
 ![Screenshot UTF-32BE](/screenshots/utf-32be.png?raw=true "UTF-32BE")
 
 ### BINARY
 
-CLI: `unibits -e binary`
+CLI: `$ unibits -e binary "🌫 Idio﻿syncrätic ℜսᖯʏ"`
+
 Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'binary'`
 
-![Screenshot BINARY](/screenshots/utf8.png?raw=true "BINARY")
+![Screenshot BINARY](/screenshots/binary.png?raw=true "BINARY")
 
 ### ASCII
 
-CLI: `unibits -e utf-8 -c ascii`
+CLI: `$ unibits -e utf-8 -c ascii "ascii"`
+
 Ruby: `unibits "ASCII String", encoding: 'utf-8', convert: 'ascii'`
 
 ![Screenshot ASCII](/screenshots/ascii.png?raw=true "ASCII")
