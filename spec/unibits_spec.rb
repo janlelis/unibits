@@ -211,4 +211,18 @@ describe Unibits do
       end
     end
   end
+
+  describe "wide_ambiguous" do
+    it "- default is 1" do
+      string = "⚀······"
+      result = Unibits.stats(string)
+      result.wont_match "13"
+    end
+
+    it "- default is 2" do
+      string = "⚀······"
+      result = Unibits.stats(string, wide_ambiguous: true)
+      result.must_match "13"
+    end
+  end
 end

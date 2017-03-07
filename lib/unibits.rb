@@ -15,7 +15,7 @@ module Unibits
     'US-ASCII',
   ].freeze
 
-  def self.of(string, encoding: nil, convert: nil, stats: true)
+  def self.of(string, encoding: nil, convert: nil, stats: true, wide_ambiguous: false)
     if !string || string.empty?
       raise ArgumentError, "no data given to unibits"
     end
@@ -25,8 +25,8 @@ module Unibits
 
     case string.encoding.name
     when *SUPPORTED_ENCODINGS
-      puts stats(string) if stats
-      puts visualize(string)
+      puts stats(string, wide_ambiguous: wide_ambiguous) if stats
+      puts visualize(string, wide_ambiguous: wide_ambiguous)
     when 'UTF-16', 'UTF-32'
       raise ArgumentError, "unibits only supports #{string.encoding.name} with specified endianess, please use #{string.encoding.name}LE or #{string.encoding.name}BE"
     else
@@ -34,17 +34,17 @@ module Unibits
     end
   end
 
-  def self.stats(string)
+  def self.stats(string, wide_ambiguous: false)
     valid      = string.valid_encoding?
     bytes      = string.bytesize rescue "?"
     codepoints = string.size rescue "?"
     glyphs     = string.scan(Regexp.compile('\X'.encode(string.encoding))).size rescue "?"
-    width      = Unicode::DisplayWidth.of(string) rescue "?"
+    width      = Unicode::DisplayWidth.of(string, wide_ambiguous ? 2 : 1) rescue "?"
 
     "\n  #{valid ? '' : Paint["Invalid ", :bold, :red]}#{Paint[string.encoding.name, :bold]} (#{bytes}/#{codepoints}/#{glyphs}/#{width})"
   end
 
-  def self.visualize(string)
+  def self.visualize(string, wide_ambiguous: false)
     cols = determine_terminal_cols
 
     cp_buffer  = ["  "]
@@ -184,7 +184,7 @@ module Unibits
             symbolified_char = "�"
           end
 
-          padding = 10 - Unicode::DisplayWidth.of(symbolified_char)
+          padding = 10 - Unicode::DisplayWidth.of(symbolified_char, wide_ambiguous ? 2 : 1)
 
           enc_buffer[-1] << Paint[
             symbolified_char, current_color

@@ -7,14 +7,15 @@ argv = Rationalist.parse(
   ARGV,
   string: '_',
   alias: {
-    e: 'encoding',
     c: 'convert',
+    e: 'encoding',
     v: 'version',
   },
   boolean: [
     'help',
+    'stats',
     'version',
-    'stats'
+    'wide-ambiguous',
   ],
   default: {
     stats: true
@@ -51,7 +52,13 @@ else
 end
 
 begin
-  Unibits.of(data, encoding: argv[:encoding], convert: argv[:convert], stats: argv[:stats])
+  Unibits.of(
+    data,
+    encoding: argv[:encoding],
+    convert: argv[:convert],
+    stats: argv[:stats],
+    wide_ambiguous: argv[:'wide-ambiguous']
+  )
 rescue ArgumentError
   $stderr.puts Paint[$!.message, :red]
   exit(1)
