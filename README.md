@@ -1,18 +1,24 @@
-# unibits [![[version]](https://badge.fury.io/rb/unibits.svg)](http://badge.fury.io/rb/unibits)  [![[travis]](https://travis-ci.org/janlelis/unibits.svg)](https://travis-ci.org/janlelis/unibits)
+# unibits | Reveal the Unicode [![[version]](https://badge.fury.io/rb/unibits.svg)](http://badge.fury.io/rb/unibits)  [![[travis]](https://travis-ci.org/janlelis/unibits.svg)](https://travis-ci.org/janlelis/unibits)
 
-Ruby library and CLI command that visualizes various Unicode and ASCII encodings in the terminal.
+Ruby library and CLI command that visualizes various Unicode and ASCII encodings in the terminal:
 
-Helps you debugging and learning about Unicode encodings.
-
-Supported encodings: **UTF-8**, **UTF-16LE**, **UTF-16BE**, **UTF-32LE**, **UTF-32BE**, **BINARY**, **ASCII**
+- Makes analyzing encodings easier
+- Helps you with debugging strings
+- Supports **UTF-8**, **UTF-16LE**/**UTF-16BE**, **UTF-32LE**/**UTF-32BE**, arbitrary **BINARY** data, and **ASCII**
+- Highlights invalid encodings
 
 ## Setup
+
+Make sure you have Ruby installed and installing gems works properly. Then do:
 
 ```
 $ gem install unibits
 ```
 
 ## Usage
+
+Pass the string to debug to unibits:
+
 ### From CLI
 
 ```
@@ -26,17 +32,15 @@ require 'unibits/kernel_method'
 unibits "🌫 Idio﻿syncrätic ℜսᖯʏ"
 ```
 
-### Options
+### Advanced Options
 
-`unibits` takes three optional options:
+`unibits` takes some optional options:
 
 - *encoding (e)*: The encoding of the given string (uses your default encoding if none given)
 - *convert (c)*: An encoding the string should be converted to before visualizing it
 - *stats*: Whether to show a short stats header (default: `true`), you can deactivate on the CLI with `--no-stats`
 
-**Please note**: This uses Ruby's built-in encoding support. Currently, only strings with valid encodings are supported.
-
-## Output for Different Encodings
+## Output of Different Valid Encodings
 ### UTF-8
 
 CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
@@ -92,6 +96,23 @@ CLI: `$ unibits -e utf-8 -c ascii "ascii"`
 Ruby: `unibits "ASCII String", encoding: 'utf-8', convert: 'ascii'`
 
 ![Screenshot ASCII](/screenshots/ascii.png?raw=true "ASCII")
+
+## Invalid Encodings
+### UTF-8
+
+Example in Ruby: `unibits "unexpected \x80 | not enough \xF0\x9F\x8C | overlong \xE0\x81\x81 | surrogate \xED\xA0\x80 | too large \xF5\x8F\xBF\xBF"`
+
+![Screenshot invalid UTF-8](/screenshots/utf-8.invalid.png?raw=true "Invalid UTF-8")
+
+### ASCII
+
+Example in Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'ascii'`
+
+![Screenshot invalid ASCII](/screenshots/ascii.invalid.png?raw=true "Invalid ASCII")
+
+### BINARY
+
+(not possible to produce invalid binary strings)
 
 ## Notes
 
