@@ -33,12 +33,40 @@ if argv[:help]
 
   #{Paint["USAGE", :underline]}
 
-  #{Paint["unibits", :bold]} [--encoding <encoding>] [--convert <encoding>] [--no-stats] data
+  #{Paint["unibits", :bold]} [options] data
 
-  Supported encodings: #{Unibits::SUPPORTED_ENCODINGS.join(', ')}
-  Explanation of stats: bytes / codepoints / glyphs / expected terminal width
+  --encoding <encoding> | which encoding to use for given data
+  --convert <encoding>  | which encoding to convert to (if possible)
+  --width <n>           | force a specific number of terminal columns
+  --no-stats            | no stats header with length info
+  --wide-ambiguous      | ambiguous characters
 
-  More info and examples at: https://github.com/janlelis/unibits
+  #{Paint["ENCODINGS", :underline]}
+
+  #{Unibits::SUPPORTED_ENCODINGS.join(', ')}
+
+  #{Paint["STATS", :underline]}
+
+  ( bytes / codepoints / glyphs / expected terminal width )
+
+  #{Paint["INVALID BYTES", :underline]}
+
+  UTF-8
+
+  n.e.con. | not enough continuation bytes
+  unexp.c. | unexpected continuation byte
+  toolarge | codepoint value exceeds maximum allowed (U+10FFFF)
+  sur.gate | codepoint value would be a surrogate half
+  overlong | unnecessary null padding
+
+  UTF-16
+
+  incompl. | not enough bytes left to finish codepoint
+  hlf.srg. | other half of surrogate missing
+
+  #{Paint["MORE INFO", :underline]}
+
+  https://github.com/janlelis/unibits
 
   HELP
   exit(0)
