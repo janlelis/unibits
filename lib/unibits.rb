@@ -88,14 +88,14 @@ module Unibits
               case char.unpack("B*")[0]
               when /^110.{5}$/
                 current_encoding_error = [:nec, 1, 1]
-                codepoint = "n.e.c."
+                codepoint = "n.e.con."
               when /^1110(.{4})$/
                 if $1 == "1101"
                   current_encoding_error = [:nec, 2, 2, :maybe_surrogate]
                 else
                   current_encoding_error = [:nec, 2, 2]
                 end
-                codepoint = "n.e.c."
+                codepoint = "n.e.con."
               when /^11110(.{3})$/
                 case $1
                 when "100"
@@ -105,7 +105,7 @@ module Unibits
                 else
                   current_encoding_error = [:nec, 3, 3]
                 end
-                codepoint = "n.e.c."
+                codepoint = "n.e.con."
               when /^11111.{3}$/
                 codepoint = "toolarge"
               when /^10(.{2}).{4}$/
@@ -127,7 +127,7 @@ module Unibits
 
                   if current_encoding_error[1] > 1
                     current_encoding_error[1] -= 1
-                    codepoint = "n.e.c."
+                    codepoint = "n.e.con."
                   else
                     case current_encoding_error[3]
                     when :too_large
@@ -139,12 +139,12 @@ module Unibits
                     end
                     current_cp_buffer_index = -1
                     (current_encoding_error[2]).times{
-                      if index = cp_buffer[current_cp_buffer_index].rindex("n.e.c.  ")
-                        cp_buffer[current_cp_buffer_index][index..-1] = cp_buffer[current_cp_buffer_index][index..-1].sub("n.e.c.  ", actual_error)
+                      if index = cp_buffer[current_cp_buffer_index].rindex("n.e.con.")
+                        cp_buffer[current_cp_buffer_index][index..-1] = cp_buffer[current_cp_buffer_index][index..-1].sub("n.e.con.", actual_error)
                       else
                         current_cp_buffer_index -= 1
-                        index = cp_buffer[current_cp_buffer_index].rindex("n.e.c.  ")
-                        cp_buffer[current_cp_buffer_index][index..-1] = cp_buffer[current_cp_buffer_index][index..-1].sub("n.e.c.  ", actual_error)
+                        index = cp_buffer[current_cp_buffer_index].rindex("n.e.con.")
+                        cp_buffer[current_cp_buffer_index][index..-1] = cp_buffer[current_cp_buffer_index][index..-1].sub("n.e.con.", actual_error)
                       end
                       current_encoding_error = [:overlong]
                       codepoint = actual_error

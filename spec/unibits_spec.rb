@@ -88,7 +88,7 @@ describe Unibits do
         string = "\xF0\x9F\x8CABC"
         result = Paint.unpaint(Unibits.visualize(string))
         result.must_match "�"
-        result.must_match "n.e.c."
+        result.must_match "n.e.con."
         result.must_match /A.*B.*C/m
       end
 
