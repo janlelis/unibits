@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'paint', '~> 2.0'
+  gem.add_dependency 'paint', '>= 0.9', '< 3.0'
   gem.add_dependency 'unicode-display_width', '~> 1.1'
   gem.add_dependency 'rationalist', '~> 2.0'
 
