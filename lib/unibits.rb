@@ -14,8 +14,9 @@ module Unibits
     'ASCII-8BIT',
     'US-ASCII',
   ].freeze
+  DEFAULT_TERMINAL_WIDTH = 80
 
-  def self.of(string, encoding: nil, convert: nil, stats: true, wide_ambiguous: false)
+  def self.of(string, encoding: nil, convert: nil, stats: true, wide_ambiguous: false, width: nil)
     if !string || string.empty?
       raise ArgumentError, "no data given to unibits"
     end
@@ -26,7 +27,7 @@ module Unibits
     case string.encoding.name
     when *SUPPORTED_ENCODINGS
       puts stats(string, wide_ambiguous: wide_ambiguous) if stats
-      puts visualize(string, wide_ambiguous: wide_ambiguous)
+      puts visualize(string, wide_ambiguous: wide_ambiguous, width: width)
     when 'UTF-16', 'UTF-32'
       raise ArgumentError, "unibits only supports #{string.encoding.name} with specified endianess, please use #{string.encoding.name}LE or #{string.encoding.name}BE"
     else
@@ -44,8 +45,8 @@ module Unibits
     "\n  #{valid ? '' : Paint["Invalid ", :bold, :red]}#{Paint[string.encoding.name, :bold]} (#{bytes}/#{codepoints}/#{glyphs}/#{width})"
   end
 
-  def self.visualize(string, wide_ambiguous: false)
-    cols = determine_terminal_cols
+  def self.visualize(string, wide_ambiguous: false, width: nil)
+    cols = width || determine_terminal_cols
 
     cp_buffer  = ["  "]
     enc_buffer = ["  "]
@@ -284,8 +285,8 @@ module Unibits
   end
 
   def self.determine_terminal_cols
-    STDIN.winsize[1] || 80
+    STDIN.winsize[1] || DEFAULT_TERMINAL_WIDTH
   rescue Errno::ENOTTY
-    return 80
+    return DEFAULT_TERMINAL_WIDTH
   end
 end

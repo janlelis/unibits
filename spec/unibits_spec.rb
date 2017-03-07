@@ -212,7 +212,7 @@ describe Unibits do
     end
   end
 
-  describe "wide_ambiguous" do
+  describe "wide_ambiguous: option" do
     it "- default is 1" do
       string = "⚀······"
       result = Unibits.stats(string)
@@ -223,6 +223,14 @@ describe Unibits do
       string = "⚀······"
       result = Unibits.stats(string, wide_ambiguous: true)
       result.must_match "13"
+    end
+  end
+
+  describe "width: option" do
+    it "sets a custom column width" do
+      string = "bla" * 99
+      result = Paint.unpaint(Unibits.visualize(string, width: 50))
+      (result[/^.*$/].size <= 50).must_equal true
     end
   end
 end

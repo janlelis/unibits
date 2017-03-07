@@ -10,6 +10,7 @@ argv = Rationalist.parse(
     c: 'convert',
     e: 'encoding',
     v: 'version',
+    w: 'width',
   },
   boolean: [
     'help',
@@ -57,7 +58,8 @@ begin
     encoding: argv[:encoding],
     convert: argv[:convert],
     stats: argv[:stats],
-    wide_ambiguous: argv[:'wide-ambiguous']
+    wide_ambiguous: argv[:'wide-ambiguous'],
+    width: argv[:width],
   )
 rescue ArgumentError
   $stderr.puts Paint[$!.message, :red]
