@@ -15,6 +15,10 @@ module Unibits
     'US-ASCII',
   ].freeze
   DEFAULT_TERMINAL_WIDTH = 80
+  COULD_BE_WHITESPACE = '[\p{Space}᠎​‌‍⁠﻿]'.freeze
+  ASCII_CONTROL_CODEPOINTS = "\x00-\x1F\x7F".freeze
+  ASCII_CONTROL_SYMBOLS = "\u{2400}-\u{241F}\u{2421}".freeze
+  OTHER_CONTROL_CODEPOINTS = "[\u{80}-\u{9F}]".freeze
 
   def self.of(string, encoding: nil, convert: nil, stats: true, wide_ambiguous: false, width: nil)
     if !string || string.empty?
@@ -276,9 +280,16 @@ module Unibits
   def self.symbolify(char)
     return char.inspect unless char.encoding.name[0, 3] == "UTF"
     char
-      .tr("\x00-\x1F".encode(char.encoding), "\u{2400}-\u{241F}".encode(char.encoding))
+      .tr(
+        ASCII_CONTROL_CODEPOINTS.encode(char.encoding),
+        ASCII_CONTROL_SYMBOLS.encode(char.encoding)
+      )
       .gsub(
-        Regexp.compile('[\p{Space}᠎​‌‍⁠﻿]'.encode(char.encoding)),
+        Regexp.compile(OTHER_CONTROL_CODEPOINTS.encode(char.encoding)),
+        'Cc'.encode(char.encoding)
+      )
+      .gsub(
+        Regexp.compile(COULD_BE_WHITESPACE.encode(char.encoding)),
         ']\0['.encode(char.encoding)
       )
       .encode('UTF-8')
