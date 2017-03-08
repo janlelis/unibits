@@ -33,7 +33,7 @@ if argv[:help]
 
   #{Paint["DESCRIPTION", :underline]}
 
-  Visualizes ANSI and variouus Unicode encodings in the terminal.
+  Visualizes ASCII and variouus Unicode encodings in the terminal.
 
   #{Paint["USAGE", :underline]}
 
