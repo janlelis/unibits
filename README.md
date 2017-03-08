@@ -36,7 +36,7 @@ unibits "🌫 Idio﻿syncrätic ℜսᖯʏ"
 
 `unibits` takes some optional options:
 
-- *encoding (e)*: The encoding of the given string (uses your default encoding if none given)
+- *encoding (e)*: The encoding of the given string (uses the string's default encoding if none given)
 - *convert (c)*: An encoding the string should be converted to before visualizing it
 - *stats*: Whether to show a short stats header (default: `true`), you can deactivate on the CLI with `--no-stats`
 - *wide-ambiguous*: Treat characters of ambiguous width as 2 spaces instead of 1 ([more info](https://github.com/janlelis/unicode-display_width))
