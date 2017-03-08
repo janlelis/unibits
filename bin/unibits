@@ -24,22 +24,27 @@ argv = Rationalist.parse(
 )
 
 if argv[:version]
-  puts Unibits::VERSION
+  puts "unibits #{Unibits::VERSION} by #{Paint["J-_-L", :bold]} <https://github.com/janlelis/unibits>"
   exit(0)
 end
 
 if argv[:help]
   puts <<-HELP
 
+  #{Paint["DESCRIPTION", :underline]}
+
+  Visualizes ANSI and variouus Unicode encodings in the terminal.
+
   #{Paint["USAGE", :underline]}
 
   #{Paint["unibits", :bold]} [options] data
 
-  --encoding <encoding> | which encoding to use for given data
-  --convert <encoding>  | which encoding to convert to (if possible)
-  --width <n>           | force a specific number of terminal columns
-  --no-stats            | no stats header with length info
-  --wide-ambiguous      | ambiguous characters
+  --encoding <encoding> | -e | which encoding to use for given data
+  --convert <encoding>  | -c | which encoding to convert to (if possible)
+  --width <n>           | -w | force a specific number of terminal columns
+  --no-stats            |    | no stats header with length info
+  --version             |    | displays version of unibits
+  --wide-ambiguous      |    | ambiguous characters
 
   #{Paint["ENCODINGS", :underline]}
 
