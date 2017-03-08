@@ -24,7 +24,7 @@ end
 
 desc "#{gemspec.name} | IRB"
 task :irb do
-  sh "irb -I ./lib -r #{gemspec.name.gsub '-','/'}"
+  sh "irb -I ./lib -r #{gemspec.name.gsub '-','/'}/kernel_method"
 end
 
 # # #
