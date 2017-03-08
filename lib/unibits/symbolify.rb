@@ -1,3 +1,5 @@
+require "unicode/categories"
+
 module Unibits
   module Symbolify
     ASCII_CONTROL_CODEPOINTS = "\x00-\x1F\x7F".freeze
@@ -74,9 +76,10 @@ module Unibits
       "\u{FE0F}" => "VS16",
     }.freeze
     COULD_BE_WHITESPACE = '[\p{Space}­᠎​‌‍⁠⁡⁢⁣⁤⁪⁫⁬⁭⁮⁯⠀﻿𛲠𛲡𛲢𛲣𝅳𝅴𝅵𝅶𝅷𝅸𝅹𝅺]'.freeze
-    # UNASSIGNED = '\p{Cn}'.freeze
 
     def self.symbolify(char, encoding = char.encoding)
+      return "n/a" if Unicode::Categories.category(char) == "Cn"
+
       char.tr!(
         ASCII_CONTROL_CODEPOINTS.encode(encoding),
         ASCII_CONTROL_SYMBOLS.encode(encoding)
@@ -85,10 +88,7 @@ module Unibits
         Regexp.compile(COULD_BE_WHITESPACE.encode(encoding)),
         ']\0['.encode(encoding)
       )
-      # char.gsub!(
-      #   Regexp.compile(UNASSIGNED.encode(encoding)),
-      #   'n/a'.encode(encoding)
-      # )
+
       INTERESTING_CODEPOINTS.each{ |cp, desc|
         char.gsub! Regexp.compile(cp.encode(encoding)), desc.encode(encoding)
       }

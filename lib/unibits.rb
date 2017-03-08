@@ -4,6 +4,7 @@ require_relative "unibits/symbolify"
 require "io/console"
 require "paint"
 require "unicode/display_width"
+require "unicode/categories"
 
 module Unibits
   SUPPORTED_ENCODINGS = [
@@ -60,8 +61,12 @@ module Unibits
     string.each_char{ |char|
       if char.valid_encoding?
         char_valid = true
-        current_color = random_color
         current_encoding_error = nil
+        if Unicode::Categories.category(char) == "Cn"
+          current_color = "#FF5500"
+        else
+          current_color = random_color
+        end
       else
         char_valid = false
         current_color = :red
