@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 1.3.0
+
+* Add variation selectors 17-256 (U+E0100 - U+E01EF)
+
 ### 1.2.1
 
 * Fix bug that inserted wrong bytes
