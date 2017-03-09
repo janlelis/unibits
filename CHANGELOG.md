@@ -4,6 +4,7 @@
 
 * Add variation selectors 17-256 (U+E0100 - U+E01EF)
 * Add U+1D159 (MUSICAL SYMBOL NULL NOTEHEAD) to list of possible white spaces
+* Bump unicode-categories dependency for more reliable unassigned codepoint detection
 
 ### 1.2.1
 
