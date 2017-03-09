@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 1.2.1
+
+* Fix bug that inserted wrong bytes
+
 ### 1.2.0
 
 * Do not display (but highlight) unassigned codepoints

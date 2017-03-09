@@ -233,4 +233,13 @@ describe Unibits do
       (result[/^.*$/].size <= 50).must_equal true
     end
   end
+
+  describe "bugs / edge cases" do
+    it "should render ASCII space (U+20) as one byte [gh #1]" do
+      string = "\u{1f32b} abc"
+      result = Paint.unpaint(Unibits.visualize(string))
+      result.wont_match /20.*20.*5B/m
+      result.must_match /F0.*9F.*8C.*AB.*20.*61.*62.*63/m
+    end
+  end
 end

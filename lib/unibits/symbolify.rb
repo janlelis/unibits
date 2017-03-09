@@ -80,6 +80,8 @@ module Unibits
     def self.symbolify(char, encoding = char.encoding)
       return "n/a" if Unicode::Categories.category(char) == "Cn"
 
+      char = char.dup
+
       char.tr!(
         ASCII_CONTROL_CODEPOINTS.encode(encoding),
         ASCII_CONTROL_SYMBOLS.encode(encoding)
