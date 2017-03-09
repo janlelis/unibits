@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 1.4.0
+
+* Add three HANGUL characters (U+115F, U+1160, U+3164) to list of possible white spaces
+
 ### 1.3.0
 
 * Add variation selectors 17-256 (U+E0100 - U+E01EF)
