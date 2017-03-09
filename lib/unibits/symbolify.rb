@@ -316,7 +316,7 @@ module Unibits
       "\u{E01EE}" => "VS255",
       "\u{E01EF}" => "VS256",
     }.freeze
-    COULD_BE_WHITESPACE = '[\p{Space}­᠎​‌‍⁠⁡⁢⁣⁤⁪⁫⁬⁭⁮⁯⠀﻿𛲠𛲡𛲢𛲣𝅳𝅴𝅵𝅶𝅷𝅸𝅹𝅺]'.freeze
+    COULD_BE_WHITESPACE = '[\p{Space}­᠎​‌‍⁠⁡⁢⁣⁤⁪⁫⁬⁭⁮⁯⠀﻿𛲠𛲡𛲢𛲣𝅙𝅳𝅴𝅵𝅶𝅷𝅸𝅹𝅺]'.freeze
 
     def self.symbolify(char, encoding = char.encoding)
       return "n/a" if Unicode::Categories.category(char) == "Cn"
