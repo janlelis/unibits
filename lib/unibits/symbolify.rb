@@ -418,7 +418,7 @@ module Unibits
       if char_info.delete?
         char = CONTROL_DELETE_SYMBOL
       elsif char_info.c0?
-        char = CONTROL_C0_SYMBOLS[ord]
+        char = CONTROL_C0_SYMBOLS[char.ord]
       elsif char_info.blank?
         char = "]" + char + "["
       end
