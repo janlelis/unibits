@@ -67,6 +67,24 @@ describe Unibits do
       result.must_match "01000011"
     end
 
+    it "works with 'ISO-8859-' encodings" do
+      string = "\xBC Idiosyncr\xE4tic\n\x91".force_encoding("ISO-8859-1")
+      result = Paint.unpaint(Unibits.visualize(string))
+      result.must_match "BC"  # ¼
+      result.must_match "E4"  # ä
+      result.must_match "␊"   # \n
+      result.must_match "PU1" # C1 name for \x91
+    end
+
+    it "works with 'Windows-' encodings" do
+      string = "\xBC Idiosyncr\xE4tic\n\x81".force_encoding("Windows-1252")
+      result = Paint.unpaint(Unibits.visualize(string))
+      result.must_match "BC"  # ¼
+      result.must_match "E4"  # ä
+      result.must_match "␊"   # \n
+      result.must_match "n/a" # \x81 is not assigned
+    end
+
     describe "invalid UTF-8 encodings" do
       it "- unexpected continuation byte (1/2)" do
         string = "abc\x80efg"

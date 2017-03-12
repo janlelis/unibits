@@ -2,16 +2,82 @@ require "unicode/categories"
 
 module Unibits
   module Symbolify
+    ASCII_CHARS = "\x20-\x7E".freeze
     ASCII_CONTROL_CODEPOINTS = "\x00-\x1F\x7F".freeze
     ASCII_CONTROL_SYMBOLS = "\u{2400}-\u{241F}\u{2421}".freeze
-    ASCII_CHARS = "\x20-\x7E".freeze
-    TAG_START = "\u{E0001}".freeze
-    TAG_START_SYMBOL = "LANG TAG".freeze
-    TAG_SPACE = "\u{E0020}".freeze
-    TAG_SPACE_SYMBOL = "TAG ␠".freeze
-    TAGS = "\u{E0021}-\u{E007E}".freeze
-    TAG_DELETE = "\u{E007F}".freeze
-    TAG_DELETE_SYMBOL = "TAG ␡".freeze
+
+    CONTROL_C0_SYMBOLS = [
+      "␀",
+      "␁",
+      "␂",
+      "␃",
+      "␄",
+      "␅",
+      "␆",
+      "␇",
+      "␈",
+      "␉",
+      "␊",
+      "␋",
+      "␌",
+      "␍",
+      "␎",
+      "␏",
+      "␐",
+      "␑",
+      "␒",
+      "␓",
+      "␔",
+      "␕",
+      "␖",
+      "␗",
+      "␘",
+      "␙",
+      "␚",
+      "␛",
+      "␜",
+      "␝",
+      "␞",
+      "␟",
+    ]
+
+    CONTROL_DELETE_SYMBOL = "␡"
+
+    CONTROL_C1_NAMES = {
+      0x80 => "PAD",
+      0x81 => "HOP",
+      0x82 => "BPH",
+      0x83 => "NBH",
+      0x84 => "IND",
+      0x85 => "NEL",
+      0x86 => "SSA",
+      0x87 => "ESA",
+      0x88 => "HTS",
+      0x89 => "HTJ",
+      0x8A => "VTS",
+      0x8B => "PLD",
+      0x8C => "PLU",
+      0x8D => "RI",
+      0x8E => "SS2",
+      0x8F => "SS3",
+      0x90 => "DCS",
+      0x91 => "PU1",
+      0x92 => "PU2",
+      0x93 => "STS",
+      0x94 => "CCH",
+      0x95 => "MW",
+      0x96 => "SPA",
+      0x97 => "EPA",
+      0x98 => "SOS",
+      0x99 => "SGC",
+      0x9A => "SCI",
+      0x9B => "CSI",
+      0x9C => "ST",
+      0x9D => "OSC",
+      0x9E => "PM",
+      0x9F => "APC",
+    }
+
     INTERESTING_CODEPOINTS = {
       "\u{0080}" => "PAD",
       "\u{0081}" => "HOP",
@@ -316,25 +382,57 @@ module Unibits
       "\u{E01EE}" => "VS255",
       "\u{E01EF}" => "VS256",
     }.freeze
-    COULD_BE_WHITESPACE = '[\p{Space}­ᅟᅠ᠎​‌‍⁠⁡⁢⁣⁤⁪⁫⁬⁭⁮⁯ㅤ⠀﻿𛲠𛲡𛲢𛲣𝅙𝅳𝅴𝅵𝅶𝅷𝅸𝅹𝅺]'.freeze
 
-    def self.symbolify(char, encoding = char.encoding)
-      return "n/a" if Unicode::Categories.category(char) == "Cn"
+    TAG_START = "\u{E0001}".freeze
+    TAG_START_SYMBOL = "LANG TAG".freeze
+    TAG_SPACE = "\u{E0020}".freeze
+    TAG_SPACE_SYMBOL = "TAG ␠".freeze
+    TAGS = "\u{E0021}-\u{E007E}".freeze
+    TAG_DELETE = "\u{E007F}".freeze
+    TAG_DELETE_SYMBOL = "TAG ␡".freeze
+
+    BLANKS = '[\p{Space}­ᅟᅠ᠎​‌‍⁠⁡⁢⁣⁤⁪⁫⁬⁭⁮⁯ㅤ⠀﻿𛲠𛲡𛲢𛲣𝅙𝅳𝅴𝅵𝅶𝅷𝅸𝅹𝅺]'.freeze
+
+    def self.symbolify(char, char_info)
+      if !char_info.valid?
+        "�"
+      else
+        case char_info
+        when UnicodeCharInfo
+          Symbolify.unicode(char, char_info)
+        when ByteCharInfo
+          Symbolify.byte(char, char_info)
+        when AsciiCharInfo
+          Symbolify.ascii(char, char_info)
+        else
+          Symbolify.binary(char)
+        end
+      end
+    end
+
+    def self.unicode(char, char_info)
+      return "n/a" if !char_info.assigned?
 
       char = char.dup
+      encoding = char_info.encoding
 
+      # control
       char.tr!(
         ASCII_CONTROL_CODEPOINTS.encode(encoding),
         ASCII_CONTROL_SYMBOLS.encode(encoding)
-      )
-      char.gsub!(
-        Regexp.compile(COULD_BE_WHITESPACE.encode(encoding)),
-        ']\0['.encode(encoding)
       )
 
       INTERESTING_CODEPOINTS.each{ |cp, desc|
         char.gsub! Regexp.compile(cp.encode(encoding)), desc.encode(encoding)
       }
+
+      # whitespace
+      char.gsub!(
+        Regexp.compile(BLANKS.encode(encoding)),
+        ']\0['.encode(encoding)
+      )
+
+      # tags
       char.gsub! TAG_START.encode(encoding), TAG_START_SYMBOL.encode(encoding)
       char.gsub! TAG_SPACE.encode(encoding), TAG_SPACE_SYMBOL.encode(encoding)
       char.gsub! TAG_DELETE.encode(encoding), TAG_DELETE_SYMBOL.encode(encoding)
@@ -345,7 +443,42 @@ module Unibits
         char = "TAG ".encode(encoding) + char
       end
 
+      char.encode("UTF-8")
+    end
+
+    def self.byte(char, char_info)
+      return "n/a" if !char_info.assigned?
+
+      ord = char.ord
+      encoding = char_info.encoding
+
+      if char_info.delete?
+        char = CONTROL_DELETE_SYMBOL
+      elsif char_info.c0?
+        char = CONTROL_C0_SYMBOLS[ord]
+      elsif char_info.c1?
+        char = CONTROL_C1_NAMES[ord]
+      elsif char_info.blank?
+        char = "]".encode(encoding) + char + "[".encode(encoding)
+      end
+
+      char.encode("UTF-8")
+    end
+
+    def self.ascii(char, char_info)
+      if char_info.delete?
+        char = CONTROL_DELETE_SYMBOL
+      elsif char_info.c0?
+        char = CONTROL_C0_SYMBOLS[ord]
+      elsif char_info.blank?
+        char = "]" + char + "["
+      end
+
       char
+    end
+
+    def self.binary(char)
+      char.inspect
     end
   end
 end

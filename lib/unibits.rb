@@ -1,4 +1,5 @@
 require_relative "unibits/version"
+require_relative "unibits/char_info"
 require_relative "unibits/symbolify"
 
 require "io/console"
@@ -15,6 +16,8 @@ module Unibits
     'UTF-32BE',
     'ASCII-8BIT',
     'US-ASCII',
+    /^ISO-8859-/,
+    /^Windows-/,
   ].freeze
   DEFAULT_TERMINAL_WIDTH = 80
 
@@ -49,6 +52,9 @@ module Unibits
 
   def self.visualize(string, wide_ambiguous: false, width: nil)
     cols = width || determine_terminal_cols
+    encoding_name = string.encoding.name
+
+    type = CharInfo.type_from_encoding_name(encoding_name)
 
     cp_buffer  = ["  "]
     enc_buffer = ["  "]
@@ -59,18 +65,10 @@ module Unibits
 
     puts
     string.each_char{ |char|
-      if char.valid_encoding?
-        char_valid = true
-        current_encoding_error = nil
-        if Unicode::Categories.category(char) == "Cn"
-          current_color = "#FF5500"
-        else
-          current_color = random_color
-        end
-      else
-        char_valid = false
-        current_color = :red
-      end
+      char_info = CharInfo.create_for_type(char, type)
+      current_color = determine_char_color(char_info)
+
+      current_encoding_error = nil if char_info.valid?
 
       char.each_byte.with_index{ |byte, index|
         if Paint.unpaint(hex_buffer[-1]).bytesize > cols - 12
@@ -82,10 +80,10 @@ module Unibits
         end
 
         if index == 0
-          if char_valid
+          if char_info.valid?
             codepoint = "U+%04X" % char.ord
           else
-            case string.encoding.name
+            case encoding_name
             when "US-ASCII"
               codepoint = "invalid"
             when "UTF-8"
@@ -167,7 +165,7 @@ module Unibits
             when 'UTF-16LE', 'UTF-16BE'
               if char.bytesize.odd?
                 codepoint = "incompl."
-              elsif char.b[string.encoding.name == 'UTF-16LE' ? 1 : 0].unpack("B*")[0][0, 5] == "11011"
+              elsif char.b[encoding_name == 'UTF-16LE' ? 1 : 0].unpack("B*")[0][0, 5] == "11011"
                 codepoint = "hlf.srg."
               else
                 codepoint = "invalid"
@@ -185,13 +183,13 @@ module Unibits
             codepoint.ljust(10), current_color, :bold
           ]
 
-          if char_valid
-            symbolified_char = symbolify(char)
-          else
-            symbolified_char = "�"
-          end
+          symbolified_char = Symbolify.symbolify(char, char_info)
 
-          padding = 10 - Unicode::DisplayWidth.of(symbolified_char, wide_ambiguous ? 2 : 1)
+          if char_info.unicode?
+            padding = 10 - Unicode::DisplayWidth.of(symbolified_char, wide_ambiguous ? 2 : 1)
+          else
+            padding = 10 - symbolified_char.size
+          end
 
           enc_buffer[-1] << Paint[
             symbolified_char, current_color
@@ -208,11 +206,11 @@ module Unibits
 
         bin_byte_complete = byte.to_s(2).rjust(8, "0")
 
-        if !char_valid
+        if !char_info.valid?
           bin_byte_1 = bin_byte_complete
           bin_byte_2 = ""
         else
-          case string.encoding.name
+          case encoding_name
           when 'US-ASCII'
             bin_byte_1 = bin_byte_complete[0...1]
             bin_byte_2 = bin_byte_complete[1...8]
@@ -253,6 +251,9 @@ module Unibits
           when 'UTF-32LE', 'UTF-32BE'
             bin_byte_1 = ""
             bin_byte_2 = bin_byte_complete
+          when /^(ISO-8859-|Windows-)/
+            bin_byte_1 = ""
+            bin_byte_2 = bin_byte_complete
           end
         end
 
@@ -268,25 +269,34 @@ module Unibits
       }
     }
 
-    if string.encoding.name[0, 3] == "UTF"
+    if type == :unicode
       enc_buffer.zip(cp_buffer, hex_buffer, bin_buffer, separator).flatten.join("\n")
     else
       enc_buffer.zip(hex_buffer, bin_buffer, separator).flatten.join("\n")
     end
   end
 
-  def self.random_color
-    "%.2x%.2x%.2x" %[rand(90) + 60, rand(90) + 60, rand(90) + 60]
-  end
-
-  def self.symbolify(char)
-    return char.inspect unless char.encoding.name[0, 3] == "UTF"
-    Symbolify.symbolify(char).encode('UTF-8')
-  end
-
   def self.determine_terminal_cols
     STDIN.winsize[1] || DEFAULT_TERMINAL_WIDTH
   rescue Errno::ENOTTY
     return DEFAULT_TERMINAL_WIDTH
+  end
+
+  def self.determine_char_color(char_info)
+    if char_info.valid?
+      if !char_info.assigned?
+        "#FF5500"
+      elsif char_info.control?
+        "#0000FF"
+      else
+        random_color
+      end
+    else
+      "#FF0000"
+    end
+  end
+
+  def self.random_color
+    "%.2x%.2x%.2x" % [rand(90) + 60, rand(90) + 60, rand(90) + 60]
   end
 end
