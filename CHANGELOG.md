@@ -5,7 +5,7 @@
 * Support more encodings: ISO-8859-X and Windows-125X
 * Add three HANGUL characters (U+115F, U+1160, U+3164) to list of possible white spaces
 * Move character handling to separate gem. It is called "characteristics".
-* Highlight control chars in blue
+* Highlight control chars in blue and blanks in light blue
 
 ### 1.3.0
 

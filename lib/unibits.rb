@@ -282,16 +282,16 @@ module Unibits
   end
 
   def self.determine_char_color(char_info)
-    if char_info.valid?
-      if !char_info.assigned?
-        "#FF5500"
-      elsif char_info.control?
-        "#0000FF"
-      else
-        random_color
-      end
-    else
+    if !char_info.valid?
       "#FF0000"
+    elsif !char_info.assigned?
+      "#FF5500"
+    elsif char_info.control?
+      "#0000FF"
+    elsif char_info.blank?
+      "#33AADD"
+    else
+      random_color
     end
   end
 
