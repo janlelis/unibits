@@ -76,7 +76,7 @@ describe Unibits do
       result.must_match "PU1" # C1 name for \x91
     end
 
-    it "works with 'Windows-' encodings" do
+    it "works with 'Windows-125' encodings" do
       string = "\xBC Idiosyncr\xE4tic\n\x81".force_encoding("Windows-1252")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "BC"  # ¼
