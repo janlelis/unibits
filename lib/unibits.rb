@@ -1,11 +1,10 @@
 require_relative "unibits/version"
-require_relative "unibits/char_info"
 require_relative "unibits/symbolify"
 
 require "io/console"
 require "paint"
 require "unicode/display_width"
-require "unicode/categories"
+require "characteristics"
 
 module Unibits
   SUPPORTED_ENCODINGS = [
@@ -54,7 +53,7 @@ module Unibits
     cols = width || determine_terminal_cols
     encoding_name = string.encoding.name
 
-    type = CharInfo.type_from_encoding_name(encoding_name)
+    type = Characteristics.type_from_encoding_name(encoding_name)
 
     cp_buffer  = ["  "]
     enc_buffer = ["  "]
@@ -65,7 +64,7 @@ module Unibits
 
     puts
     string.each_char{ |char|
-      char_info = CharInfo.create_for_type(char, type)
+      char_info = Characteristics.create_for_type(char, type)
       current_color = determine_char_color(char_info)
 
       current_encoding_error = nil if char_info.valid?
