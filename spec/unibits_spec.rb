@@ -111,7 +111,7 @@ describe Unibits do
       result.must_match "␊"    # \n
     end
 
-    it "works with 'TIS-620' encodings" do
+    it "works with 'TIS-620/Windows-874' encodings" do
       string = "\xA4 Idiosyncratic\n".force_encoding("TIS-620")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "A4"  # ค
