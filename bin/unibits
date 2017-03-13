@@ -50,6 +50,14 @@ if argv[:help]
 
   #{Unibits::SUPPORTED_ENCODINGS.join(', ')}
 
+  #{Paint["COLOR CODING", :underline]}
+
+  #{Paint["invalid",    Unibits::COLORS[:invalid]]}
+  #{Paint["unassigned", Unibits::COLORS[:unassigned]]}
+  #{Paint["control",    Unibits::COLORS[:control]]}
+  #{Paint["blank",      Unibits::COLORS[:blank]]}
+  #{Paint["format",     Unibits::COLORS[:format]]}
+
   #{Paint["STATS", :underline]}
 
   ( bytes / codepoints / glyphs / expected terminal width )

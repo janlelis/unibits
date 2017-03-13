@@ -19,6 +19,15 @@ module Unibits
     /^Windows-125/,
     /^(IBM|CP85)/,
   ].freeze
+
+  COLORS = {
+    invalid: "#FF0000",
+    unassigned: "#FF5500",
+    control: "#0000FF",
+    blank: "#33AADD",
+    format: "#FF00FF",
+  }
+
   DEFAULT_TERMINAL_WIDTH = 80
 
   def self.of(string, encoding: nil, convert: nil, stats: true, wide_ambiguous: false, width: nil)
@@ -281,15 +290,15 @@ module Unibits
 
   def self.determine_char_color(char_info)
     if !char_info.valid?
-      "#FF0000"
+      COLORS[:invalid]
     elsif !char_info.assigned?
-      "#FF5500"
+      COLORS[:unassigned]
     elsif char_info.control?
-      "#0000FF"
+      COLORS[:control]
     elsif char_info.blank?
-      "#33AADD"
+      COLORS[:blank]
     elsif char_info.format?
-      "#FF00FF"
+      COLORS[:format]
     else
       random_color
     end
