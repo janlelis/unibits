@@ -67,7 +67,7 @@ describe Unibits do
       result.must_match "01000011"
     end
 
-    it "works with 'ISO-8859-' encodings" do
+    it "works with 'ISO-8859-X' encodings" do
       string = "\xBC Idiosyncr\xE4tic\n\x91".force_encoding("ISO-8859-1")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "BC"  # ¼
@@ -76,13 +76,29 @@ describe Unibits do
       result.must_match "PU1" # C1 name for \x91
     end
 
-    it "works with 'Windows-125' encodings" do
+    it "works with 'Windows-125X' encodings" do
       string = "\xBC Idiosyncr\xE4tic\n\x81".force_encoding("Windows-1252")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "BC"  # ¼
       result.must_match "E4"  # ä
       result.must_match "␊"   # \n
       result.must_match "n/a" # \x81 is not assigned
+    end
+
+    it "works with 'IBMX' encodings" do
+      string = "\xFE Idiosyncr\x84tic\n".force_encoding("IBM437")
+      result = Paint.unpaint(Unibits.visualize(string))
+      result.must_match "FE"  # ■
+      result.must_match "84"  # ä
+      result.must_match "␊"   # \n
+    end
+
+    it "works with 'CP85X' encodings" do
+      string = "\xFE Idiosyncr\x84tic\n".force_encoding("CP850")
+      result = Paint.unpaint(Unibits.visualize(string))
+      result.must_match "FE"  # ■
+      result.must_match "84"  # ä
+      result.must_match "␊"   # \n
     end
 
     describe "invalid UTF-8 encodings" do
