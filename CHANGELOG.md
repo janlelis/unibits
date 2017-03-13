@@ -6,6 +6,7 @@
 * Add three HANGUL characters (U+115F, U+1160, U+3164) to list of possible white spaces
 * Move character handling to separate gem. It is called "characteristics".
 * Highlight control chars in blue and blanks in light blue
+* Handle encodings that are not convertible to UTF-8
 
 ### 1.3.0
 

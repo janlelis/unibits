@@ -1,5 +1,6 @@
 module Unibits
   module Symbolify
+    NO_UTF8_CONVERTER = /^Windows-1258/
     ASCII_CHARS = "\x20-\x7E".freeze
     ASCII_CONTROL_CODEPOINTS = "\x00-\x1F\x7F".freeze
     ASCII_CONTROL_SYMBOLS = "\u{2400}-\u{241F}\u{2421}".freeze
@@ -400,6 +401,8 @@ module Unibits
 
       ord = char.ord
       encoding = char_info.encoding
+      no_converter = !!(NO_UTF8_CONVERTER =~ encoding.name)
+      treat_char_unconverted = false
 
       if char_info.delete?
         char = CONTROL_DELETE_SYMBOL
@@ -407,11 +410,17 @@ module Unibits
         char = CONTROL_C0_SYMBOLS[ord]
       elsif char_info.c1?
         char = CONTROL_C1_NAMES[ord]
+      elsif no_converter
+        treat_char_unconverted = true
       elsif char_info.blank?
         char = "]".encode(encoding) + char + "[".encode(encoding)
       end
 
-      char.encode("UTF-8")
+      if no_converter && treat_char_unconverted
+        char.inspect
+      else
+        char.encode("UTF-8")
+      end
     end
 
     def self.ascii(char, char_info)
