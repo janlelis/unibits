@@ -79,7 +79,7 @@ module Unibits
 
       current_encoding_error = nil if char_info.valid?
 
-      char.each_byte.with_index{ |byte, index|
+      char.each_byte.with_index{ |byte, byteindex|
         if Paint.unpaint(hex_buffer[-1]).bytesize > cols - 12
           cp_buffer  << "  "
           enc_buffer << "  "
@@ -88,7 +88,7 @@ module Unibits
           separator  << "  "
         end
 
-        if index == 0
+        if byteindex == 0
           if char_info.valid?
             codepoint = "U+%04X" % char.ord
           else
@@ -188,9 +188,7 @@ module Unibits
             end
           end
 
-          cp_buffer[-1] << Paint[
-            codepoint.ljust(10), current_color, :bold
-          ]
+          cp_buffer[-1] << Paint[ codepoint.ljust(10), current_color, :bold ]
 
           symbolified_char = Symbolify.symbolify(char, char_info)
 
@@ -200,77 +198,16 @@ module Unibits
             padding = 10 - symbolified_char.size
           end
 
-          enc_buffer[-1] << Paint[
-            symbolified_char, current_color
-          ]
+          enc_buffer[-1] << Paint[ symbolified_char, current_color ]
           enc_buffer[-1] << " " * padding if padding > 0
         else
           cp_buffer[-1]  << " " * 10
           enc_buffer[-1] << " " * 10
         end
 
-        hex_buffer[-1] << Paint[
-          ("%02X" % byte).ljust(10, " "), current_color
-        ]
+        hex_buffer[-1] << Paint[ ("%02X" % byte).ljust(10, " "), current_color ]
 
-        bin_byte_complete = byte.to_s(2).rjust(8, "0")
-
-        if !char_info.valid?
-          bin_byte_1 = bin_byte_complete
-          bin_byte_2 = ""
-        else
-          case encoding_name
-          when 'US-ASCII'
-            bin_byte_1 = bin_byte_complete[0...1]
-            bin_byte_2 = bin_byte_complete[1...8]
-          when 'ASCII-8BIT'
-            bin_byte_1 = ""
-            bin_byte_2 = bin_byte_complete
-          when 'UTF-8'
-            if index == 0
-              if bin_byte_complete =~ /^(0|1{2,4}0)([01]+)$/
-                bin_byte_1 = $1
-                bin_byte_2 = $2
-              else
-                bin_byte_1 = ""
-                bin_byte_2 = bin_byte_complete
-              end
-            else
-              bin_byte_1 = bin_byte_complete[0...2]
-              bin_byte_2 = bin_byte_complete[2...8]
-            end
-          when 'UTF-16LE'
-            if char.ord <= 0xFFFF || index == 0 || index == 2
-              bin_byte_1 = ""
-              bin_byte_2 = bin_byte_complete
-            else
-              bin_byte_complete =~ /^(11011[01])([01]+)$/
-              bin_byte_1 = $1
-              bin_byte_2 = $2
-            end
-          when 'UTF-16BE'
-            if char.ord <= 0xFFFF || index == 1 || index == 3
-              bin_byte_1 = ""
-              bin_byte_2 = bin_byte_complete
-            else
-              bin_byte_complete =~ /^(11011[01])([01]+)$/
-              bin_byte_1 = $1
-              bin_byte_2 = $2
-            end
-          else
-            bin_byte_1 = ""
-            bin_byte_2 = bin_byte_complete
-          end
-        end
-
-        bin_buffer[-1] << Paint[
-          bin_byte_1, current_color
-        ] unless !bin_byte_1 || bin_byte_1.empty?
-
-        bin_buffer[-1] << Paint[
-          bin_byte_2, current_color, :underline
-        ] unless !bin_byte_2 || bin_byte_2.empty?
-
+        bin_buffer[-1] << highlight_bits(byte, char, char_info, current_color, byteindex)
         bin_buffer[-1] << "  "
       }
     }
@@ -306,5 +243,62 @@ module Unibits
 
   def self.random_color
     "%.2x%.2x%.2x" % [rand(90) + 60, rand(90) + 60, rand(90) + 60]
+  end
+
+  def self.highlight_bits(byte, char, char_info, current_color, byteindex)
+    bin_byte_complete = byte.to_s(2).rjust(8, "0")
+
+    if !char_info.valid?
+      bin_byte_1 = bin_byte_complete
+      bin_byte_2 = ""
+    else
+      case char_info.encoding.name
+      when 'US-ASCII'
+        bin_byte_1 = bin_byte_complete[0...1]
+        bin_byte_2 = bin_byte_complete[1...8]
+      when 'ASCII-8BIT'
+        bin_byte_1 = ""
+        bin_byte_2 = bin_byte_complete
+      when 'UTF-8'
+        if byteindex == 0
+          if bin_byte_complete =~ /^(0|1{2,4}0)([01]+)$/
+            bin_byte_1 = $1
+            bin_byte_2 = $2
+          else
+            bin_byte_1 = ""
+            bin_byte_2 = bin_byte_complete
+          end
+        else
+          bin_byte_1 = bin_byte_complete[0...2]
+          bin_byte_2 = bin_byte_complete[2...8]
+        end
+      when 'UTF-16LE'
+        if char.ord <= 0xFFFF || byteindex == 0 || byteindex == 2
+          bin_byte_1 = ""
+          bin_byte_2 = bin_byte_complete
+        else
+          bin_byte_complete =~ /^(11011[01])([01]+)$/
+          bin_byte_1 = $1
+          bin_byte_2 = $2
+        end
+      when 'UTF-16BE'
+        if char.ord <= 0xFFFF || byteindex == 1 || byteindex == 3
+          bin_byte_1 = ""
+          bin_byte_2 = bin_byte_complete
+        else
+          bin_byte_complete =~ /^(11011[01])([01]+)$/
+          bin_byte_1 = $1
+          bin_byte_2 = $2
+        end
+      else
+        bin_byte_1 = ""
+        bin_byte_2 = bin_byte_complete
+      end
+    end
+
+    res = ""
+    res << Paint[ bin_byte_1, current_color ]             unless !bin_byte_1 || bin_byte_1.empty?
+    res << Paint[ bin_byte_2, current_color, :underline ] unless !bin_byte_2 || bin_byte_2.empty?
+    res
   end
 end
