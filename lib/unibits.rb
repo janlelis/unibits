@@ -7,21 +7,21 @@ require "unicode/display_width"
 require "characteristics"
 
 module Unibits
-  SUPPORTED_ENCODINGS = [
-    'UTF-8',
-    'UTF-16LE',
-    'UTF-16BE',
-    'UTF-32LE',
-    'UTF-32BE',
-    'ASCII-8BIT',
-    'US-ASCII',
-    /^ISO-8859-/,
-    /^Windows-125/,
-    /^(IBM|CP85)/,
-    /^mac/,
-    'TIS-620',
-    'Windows-874',
-  ].freeze
+  SUPPORTED_ENCODINGS = Encoding.name_list.grep(
+    Regexp.union(
+      /^UTF-8$/,
+      /^UTF-...E$/,
+      /^ASCII-8BIT$/,
+      /^US-ASCII$/,
+      /^ISO-8859-/,
+      /^Windows-125/,
+      /^IBM/,
+      /^CP85/,
+      /^mac/,
+      /^TIS-620$/,
+      /^Windows-874$/,
+    )
+  ).sort.freeze
 
   COLORS = {
     invalid: "#FF0000",

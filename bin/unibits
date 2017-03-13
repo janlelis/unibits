@@ -33,7 +33,7 @@ if argv[:help]
 
   #{Paint["DESCRIPTION", :underline]}
 
-  Visualizes ASCII and variouus Unicode encodings in the terminal.
+  Visualizes Unicode and ASCII/single byte encodings in the terminal.
 
   #{Paint["USAGE", :underline]}
 
@@ -48,8 +48,7 @@ if argv[:help]
 
   #{Paint["ENCODINGS", :underline]}
 
-  #{Unibits::SUPPORTED_ENCODINGS.join(', ')}
-
+  #{Unibits::SUPPORTED_ENCODINGS.join(', ').scan(/.{,80}(?> |\z)/).join("\n  ")}
   #{Paint["COLOR CODING", :underline]}
 
   #{Paint["invalid",    Unibits::COLORS[:invalid]]}
