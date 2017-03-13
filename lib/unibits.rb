@@ -19,6 +19,7 @@ module Unibits
     /^Windows-125/,
     /^(IBM|CP85)/,
     /^mac/,
+    'TIS-620',
   ].freeze
 
   COLORS = {

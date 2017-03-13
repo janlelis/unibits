@@ -2,7 +2,7 @@
 
 ### 2.1.0 (next)
 
-* Suppor more encoding: IBMX, CP85X and macX
+* Suppor more encoding: IBMX, CP85X, macX and TIS-620
 * Highlight non-control formatting characters in pink
 
 ### 2.0.0

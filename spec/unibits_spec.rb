@@ -110,6 +110,13 @@ describe Unibits do
       result.must_match "␊"   # \n
     end
 
+    it "works with 'TIS-620' encodings" do
+      string = "\xA4 Idiosyncratic\n".force_encoding("TIS-620")
+      result = Paint.unpaint(Unibits.visualize(string))
+      result.must_match "A4"  # ค
+      result.must_match "␊"   # \n
+    end
+
     describe "invalid UTF-8 encodings" do
       it "- unexpected continuation byte (1/2)" do
         string = "abc\x80efg"
