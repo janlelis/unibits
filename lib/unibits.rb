@@ -288,6 +288,8 @@ module Unibits
       "#0000FF"
     elsif char_info.blank?
       "#33AADD"
+    elsif char_info.format?
+      "#FF00FF"
     else
       random_color
     end

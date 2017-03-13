@@ -3,6 +3,7 @@
 ### 2.1.0 (next)
 
 * Suppor more encoding: IBMX and CP85X
+* Highlight non-control formatting characters in pink
 
 ### 2.0.0
 
