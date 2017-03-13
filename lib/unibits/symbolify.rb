@@ -368,6 +368,13 @@ module Unibits
       0xFE => "RLM",
     }.freeze
 
+    MAC_KEY_SYMBOLS = {
+      0x11 => "⌘",
+      0x12 => "⇧",
+      0x13 => "⌥",
+      0x14 => "⌃",
+    }
+
     def self.symbolify(char, char_info)
       if !char_info.valid?
         "�"
@@ -421,7 +428,11 @@ module Unibits
       if char_info.delete?
         char = CONTROL_DELETE_SYMBOL
       elsif char_info.c0?
+        if ord >= 0x11 && ord <= 0x14 && encoding.name =~ /^mac/
+          char = MAC_KEY_SYMBOLS[ord]
+        else
         char = CONTROL_C0_SYMBOLS[ord]
+        end
       elsif char_info.c1?
         char = CONTROL_C1_NAMES[ord]
       elsif no_converter

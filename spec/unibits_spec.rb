@@ -102,12 +102,13 @@ describe Unibits do
     end
 
     it "works with 'macX' encodings" do
-      string = "\xBD Idiosyncr\x8Atic \xF0\n".force_encoding("macRoman")
+      string = "\xBD Idiosyncr\x8Atic \x11 \xF0\n".force_encoding("macRoman")
       result = Paint.unpaint(Unibits.visualize(string))
-      result.must_match "BD"  # Ω
-      result.must_match "8A"  # ä
+      result.must_match "BD"   # Ω
+      result.must_match "8A"   # ä
       result.must_match "Logo" # \xF0
-      result.must_match "␊"   # \n
+      result.must_match "⌘"    # \x11
+      result.must_match "␊"    # \n
     end
 
     it "works with 'TIS-620' encodings" do
