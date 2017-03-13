@@ -218,6 +218,22 @@ describe Unibits do
         result.must_match "incompl."
         result.must_match "�"
       end
+
+      # TODO implement when https://bugs.ruby-lang.org/issues/13292 is released
+
+      # it "- too large codepoint" do
+      #   string = "\x00\x00\x11\x00".force_encoding("UTF-32LE")
+      #   result = Paint.unpaint(Unibits.visualize(string))
+      #   result.must_match "�"
+      #   result.must_match /toolarge.*toolarge.*toolarge.*toolarge/m
+      # end
+
+      # it "- has surrogate" do
+      #   string = "\x00\xD8\x00\x00".force_encoding("UTF-32LE")
+      #   result = Paint.unpaint(Unibits.visualize(string))
+      #   result.must_match "�"
+      #   result.must_match "sur.gate"
+      # end
     end
 
     describe "invalid ASCII encodings" do
