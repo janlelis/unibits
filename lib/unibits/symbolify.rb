@@ -354,6 +354,16 @@ module Unibits
       0xE01EF => "VS256",
     }.freeze
 
+    INTERESTING_BYTES_ENCODINGS = {
+      0xFD => /^(ISO-8859-8|Windows-(1255|1256))/,
+      0xFE => /^(ISO-8859-8|Windows-(1255|1256))/,
+    }.freeze
+
+    INTERESTING_BYTES_VALUES = {
+      0xFD => "LRM",
+      0xFE => "RLM",
+    }.freeze
+
     def self.symbolify(char, char_info)
       if !char_info.valid?
         "�"
@@ -414,6 +424,8 @@ module Unibits
         treat_char_unconverted = true
       elsif char_info.blank?
         char = "]".encode(encoding) + char + "[".encode(encoding)
+      elsif INTERESTING_BYTES_ENCODINGS[ord] =~ encoding.name
+        char = INTERESTING_BYTES_VALUES[ord]
       end
 
       if no_converter && treat_char_unconverted
