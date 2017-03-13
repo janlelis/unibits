@@ -4,8 +4,18 @@ Ruby library and CLI command that visualizes various Unicode and ASCII encodings
 
 - Makes analyzing encodings easier
 - Helps you with debugging strings
-- Supports **UTF-8**, **UTF-16LE**/**UTF-16BE**, **UTF-32LE**/**UTF-32BE**, arbitrary **BINARY** data, and **ASCII**
+- Supports **UTF-8**, **UTF-16LE**/**UTF-16BE**, **UTF-32LE**/**UTF-32BE**, **ISO-8859-X**, **Windows-125X** arbitrary **BINARY** data, and **ASCII**
 - Highlights invalid encodings
+
+## Color Coding
+
+Each byte of the given string is highlighted using the following mechanism:
+
+- Red for invalid bytes
+- Orange for unassigned bytes/characters
+- Blue for control characters
+- Light blue for blanks
+- Random color for all other characters
 
 ## Setup
 
@@ -114,16 +124,17 @@ Example in Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'ascii'
 
 ### BINARY
 
-(not possible to produce invalid binary strings)
+Not possible to produce invalid binary strings
 
 ## Notes
 
 Also see
 
+- [Ruby's Encoding class](https://ruby-doc.org/core/Encoding.html)
+- [Characteristics gem](https://github.com/janlelis/characteristics)
 - [UTF-8 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-8#Description)
 - [UTF-16 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-16#Description)
 - [UTF-32 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-32)
-- [Ruby's Encoding class](https://ruby-doc.org/core/Encoding.html)
 - [Difference between BINARY and ASCII](http://idiosyncratic-ruby.com/56-us-ascii-8bit.html)
 - [Unicode Micro Libraries for Ruby](https://github.com/janlelis/unicode-x)
 
