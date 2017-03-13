@@ -101,6 +101,15 @@ describe Unibits do
       result.must_match "␊"   # \n
     end
 
+    it "works with 'macX' encodings" do
+      string = "\xBD Idiosyncr\x8Atic \xF0\n".force_encoding("macRoman")
+      result = Paint.unpaint(Unibits.visualize(string))
+      result.must_match "BD"  # Ω
+      result.must_match "8A"  # ä
+      result.must_match "Logo" # \xF0
+      result.must_match "␊"   # \n
+    end
+
     describe "invalid UTF-8 encodings" do
       it "- unexpected continuation byte (1/2)" do
         string = "abc\x80efg"

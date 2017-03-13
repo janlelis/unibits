@@ -1,6 +1,6 @@
 module Unibits
   module Symbolify
-    NO_UTF8_CONVERTER = /^(Windows-1258|IBM864)/
+    NO_UTF8_CONVERTER = /^(Windows-1258|IBM864|macCentEuro|macThai)/
     ASCII_CHARS = "\x20-\x7E".freeze
     ASCII_CONTROL_CODEPOINTS = "\x00-\x1F\x7F".freeze
     ASCII_CONTROL_SYMBOLS = "\u{2400}-\u{241F}\u{2421}".freeze
@@ -355,11 +355,15 @@ module Unibits
     }.freeze
 
     INTERESTING_BYTES_ENCODINGS = {
+      0xD8 => /^macCroatian/,
+      0xF0 => /^mac(Iceland|Roman|Turkish)/,
       0xFD => /^(ISO-8859-8|Windows-(1255|1256))/,
       0xFE => /^(ISO-8859-8|Windows-(1255|1256))/,
     }.freeze
 
     INTERESTING_BYTES_VALUES = {
+      0xD8 => "Logo",
+      0xF0 => "Logo",
       0xFD => "LRM",
       0xFE => "RLM",
     }.freeze

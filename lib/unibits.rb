@@ -18,6 +18,7 @@ module Unibits
     /^ISO-8859-/,
     /^Windows-125/,
     /^(IBM|CP85)/,
+    /^mac/,
   ].freeze
 
   COLORS = {
