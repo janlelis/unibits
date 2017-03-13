@@ -17,6 +17,7 @@ module Unibits
     'US-ASCII',
     /^ISO-8859-/,
     /^Windows-125/,
+    /^(IBM|CP85)/,
   ].freeze
   DEFAULT_TERMINAL_WIDTH = 80
 
@@ -247,10 +248,7 @@ module Unibits
               bin_byte_1 = $1
               bin_byte_2 = $2
             end
-          when 'UTF-32LE', 'UTF-32BE'
-            bin_byte_1 = ""
-            bin_byte_2 = bin_byte_complete
-          when /^(ISO-8859-|Windows-125)/
+          else
             bin_byte_1 = ""
             bin_byte_2 = bin_byte_complete
           end

@@ -4,7 +4,7 @@ Ruby library and CLI command that visualizes various Unicode and ASCII encodings
 
 - Makes analyzing encodings easier
 - Helps you with debugging strings
-- Supports **UTF-8**, **UTF-16LE**/**UTF-16BE**, **UTF-32LE**/**UTF-32BE**, **ISO-8859-X**, **Windows-125X** arbitrary **BINARY** data, and **ASCII**
+- Supports **UTF-8**, **UTF-16LE**/**UTF-16BE**, **UTF-32LE**/**UTF-32BE**, **ISO-8859-X**, **Windows-125X**, **IBMX**, **CP85X**, arbitrary **BINARY** data, and **ASCII**
 - Highlights invalid encodings
 
 ## Color Coding

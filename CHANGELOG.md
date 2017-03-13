@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.1.0 (next)
+
+* Suppor more encoding: IBMX and CP85X
+
 ### 2.0.0
 
 * Support more encodings: ISO-8859-X and Windows-125X

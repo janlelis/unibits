@@ -1,6 +1,6 @@
 module Unibits
   module Symbolify
-    NO_UTF8_CONVERTER = /^Windows-1258/
+    NO_UTF8_CONVERTER = /^(Windows-1258|IBM864)/
     ASCII_CHARS = "\x20-\x7E".freeze
     ASCII_CONTROL_CODEPOINTS = "\x00-\x1F\x7F".freeze
     ASCII_CONTROL_SYMBOLS = "\u{2400}-\u{241F}\u{2421}".freeze
