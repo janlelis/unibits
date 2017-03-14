@@ -1,15 +1,16 @@
 ## CHANGELOG
 
-### 2.1.0 (next)
+### 2.1.0
 
-* Suppor more encoding: IBMX, CP85X, macX and TIS-620
+* Support more encoding: IBMX, CP85X, macX, TIS-620/Windows-874, and KOI8-X
 * Highlight non-control formatting characters in pink
+* Improve `unibits --help` command
 
 ### 2.0.0
 
 * Support more encodings: ISO-8859-X and Windows-125X
 * Add three HANGUL characters (U+115F, U+1160, U+3164) to list of possible white spaces
-* Move character handling to separate gem. It is called "characteristics".
+* Move character handling to separate gem. It is called [characteristics](https://github.com/janlelis/characteristics).
 * Highlight control chars in blue and blanks in light blue
 * Handle encodings that are not convertible to UTF-8
 
