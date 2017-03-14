@@ -118,6 +118,13 @@ describe Unibits do
       result.must_match "␊"   # \n
     end
 
+    it "works with 'KOI8-X' encodings" do
+      string = "\xE9\xE4\xE9\xEF\xF3\xF9\xEE\xE3\xF2\xE1\xF4\xE9\xE3\n".force_encoding("KOI8-R")
+      result = Paint.unpaint(Unibits.visualize(string))
+      result.must_match "F9"  # Ы
+      result.must_match "␊"   # \n
+    end
+
     describe "invalid UTF-8 encodings" do
       it "- unexpected continuation byte (1/2)" do
         string = "abc\x80efg"

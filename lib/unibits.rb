@@ -20,6 +20,7 @@ module Unibits
       /^mac/,
       /^TIS-620$/,
       /^Windows-874$/,
+      /^KOI8/,
     )
   ).sort.freeze
 

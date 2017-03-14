@@ -1,10 +1,10 @@
 # unibits | Reveal the Unicode [![[version]](https://badge.fury.io/rb/unibits.svg)](http://badge.fury.io/rb/unibits)  [![[travis]](https://travis-ci.org/janlelis/unibits.svg)](https://travis-ci.org/janlelis/unibits)
 
-Ruby library and CLI command that visualizes various Unicode and ASCII encodings in the terminal:
+Ruby library and CLI command that visualizes various Unicode and ASCII/single byte encodings in the terminal:
 
 - Makes analyzing encodings easier
 - Helps you with debugging strings
-- Supports **UTF-8**, **UTF-16LE**/**UTF-16BE**, **UTF-32LE**/**UTF-32BE**, **ISO-8859-X**, **Windows-125X**, **IBMX**, **CP85X**, **macX**, **TIS-620**/**Windows-874**, arbitrary **BINARY** data, and **ASCII**
+- Supports **UTF-8**, **UTF-16LE**/**UTF-16BE**, **UTF-32LE**/**UTF-32BE**, **ISO-8859-X**, **Windows-125X**, **IBMX**, **CP85X**, **macX**, **TIS-620**/**Windows-874**, **KOI8-R**/**KOI8-U**, arbitrary **BINARY** data, and 7-Bit **ASCII**
 - Highlights invalid encodings
 
 ## Color Coding
