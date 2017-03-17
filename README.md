@@ -4,8 +4,8 @@ Ruby library and CLI command that visualizes various Unicode and ASCII/single by
 
 - Makes analyzing encodings easier
 - Helps you with debugging strings
-- Supports **UTF-8**, **UTF-16LE**/**UTF-16BE**, **UTF-32LE**/**UTF-32BE**, **ISO-8859-X**, **Windows-125X**, **IBMX**, **CP85X**, **macX**, **TIS-620**/**Windows-874**, **KOI8-R**/**KOI8-U**, arbitrary **BINARY** data, and 7-Bit **ASCII**
 - Highlights invalid/special/blank bytes/characters/codepoints
+- Supports *UTF-8*, *UTF-16LE*/*UTF-16BE*, *UTF-32LE*/*UTF-32BE*, *ISO-8859-X*, *Windows-125X*, *IBMX*, *CP85X*, *macX*, *TIS-620*/*Windows-874*, *KOI8-R*/*KOI8-U*, 7-Bit *ASCII*, and arbitrary *BINARY* data
 
 ## Color Coding
 
@@ -53,7 +53,7 @@ unibits "🌫 Idio﻿syncrätic ℜսᖯʏ"
 - *wide-ambiguous*: Treat characters of ambiguous width as 2 spaces instead of 1 ([more info](https://github.com/janlelis/unicode-display_width))
 - *width (w)*: Set a custom column width, if not set, *unibits* will retrieve it from the terminal or just use 80
 
-## Output of Different Valid Encodings
+## Examples of Valid Encodings
 ### UTF-8
 
 CLI: `$ unibits -e utf-8 -c utf-8 "🌫 Idio﻿syncrätic ℜսᖯʏ"`
@@ -69,22 +69,6 @@ CLI: `$ unibits -e utf-8 -c utf-16le "🌫 Idio﻿syncrätic ℜսᖯʏ"`
 Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-16le'`
 
 ![Screenshot UTF-16LE](/screenshots/utf-16le.png?raw=true "UTF-16LE")
-
-### UTF-16BE
-
-CLI: `$ unibits -e utf-8 -c utf-16be "🌫 Idio﻿syncrätic ℜսᖯʏ"`
-
-Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-16be'`
-
-![Screenshot UTF-16BE](/screenshots/utf-16be.png?raw=true "UTF-16BE")
-
-### UTF-32LE
-
-CLI: `$ unibits -e utf-8 -c utf-32le "🌫 Idio﻿syncrätic ℜսᖯʏ"`
-
-Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'utf-8', convert: 'utf-32le'`
-
-![Screenshot UTF-32LE](/screenshots/utf-32le.png?raw=true "UTF-32LE")
 
 ### UTF-32BE
 
@@ -106,11 +90,11 @@ Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'binary'`
 
 CLI: `$ unibits -e utf-8 -c ascii "ascii"`
 
-Ruby: `unibits "ASCII String", encoding: 'utf-8', convert: 'ascii'`
+Ruby: `unibits "ascii", encoding: 'utf-8', convert: 'ascii'`
 
 ![Screenshot ASCII](/screenshots/ascii.png?raw=true "ASCII")
 
-## Invalid Encodings
+## Examples of Invalid Encodings
 ### UTF-8
 
 Example in Ruby: `unibits "unexpected \x80 | not enough \xF0\x9F\x8C | overlong \xE0\x81\x81 | surrogate \xED\xA0\x80 | too large \xF5\x8F\xBF\xBF"`
@@ -122,10 +106,6 @@ Example in Ruby: `unibits "unexpected \x80 | not enough \xF0\x9F\x8C | overlong 
 Example in Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'ascii'`
 
 ![Screenshot invalid ASCII](/screenshots/ascii.invalid.png?raw=true "Invalid ASCII")
-
-### BINARY
-
-Not possible to produce invalid binary strings
 
 ## Notes
 
