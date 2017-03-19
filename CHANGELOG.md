@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.1.1
+
+* Proper UTF-32 validness / invalid codepoint highlighting, see https://bugs.ruby-lang.org/issues/13292
+
 ### 2.1.0
 
 * Support more encoding: IBMX, CP85X, macX, TIS-620/Windows-874, and KOI8-X

@@ -79,6 +79,7 @@ module Unibits
     puts
     string.each_char{ |char|
       char_info = Characteristics.create_for_type(char, type)
+      double_check_utf32_validness!(char, char_info)
       current_color = determine_char_color(char_info)
 
       current_encoding_error = nil if char_info.valid?
@@ -184,10 +185,13 @@ module Unibits
                 codepoint = "invalid"
               end
             when 'UTF-32LE', 'UTF-32BE'
-              if char.bytesize != "4"
+              if char.bytesize % 4 != 0
                 codepoint = "incompl."
+              elsif char.b.unpack("C*")[encoding_name == 'UTF-32LE' ? 2 : 1] > 16 ||
+                    char.b.unpack("C*")[encoding_name == 'UTF-32LE' ? 3 : 0] > 0
+                codepoint = "toolarge"
               else
-                codepoint = "invalid"
+                codepoint = "sur.gate"
               end
             end
           end
@@ -304,5 +308,16 @@ module Unibits
     res << Paint[ bin_byte_1, current_color ]             unless !bin_byte_1 || bin_byte_1.empty?
     res << Paint[ bin_byte_2, current_color, :underline ] unless !bin_byte_2 || bin_byte_2.empty?
     res
+  end
+
+  def self.double_check_utf32_validness!(char, char_info)
+    return if RUBY_VERSION > "2.4.0" || char_info.encoding.name[0, 6] != "UTF-32" || !char_info.valid?
+    byte_values = char.b.unpack("C*")
+    le = char_info.encoding.name == 'UTF-32LE'
+    if  byte_values[le ? 2 : 1] > 16 ||
+        byte_values[le ? 3 : 0] > 0 ||
+        byte_values[le ? 1 : 2] >= 216  && byte_values[le ? 1 : 2] <= 223
+      char_info.instance_variable_set(:@is_valid, false)
+    end
   end
 end
