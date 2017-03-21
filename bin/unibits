@@ -76,6 +76,12 @@ if argv[:help]
   incompl. | not enough bytes left to finish codepoint
   hlf.srg. | other half of surrogate missing
 
+  UTF-32
+
+  incompl. | not enough bytes left to finish codepoint
+  toolarge | codepoint value exceeds maximum allowed (U+10FFFF)
+  sur.gate | codepoint value would be a surrogate half
+
   #{Paint["MORE INFO", :underline]}
 
   https://github.com/janlelis/unibits
