@@ -416,6 +416,8 @@ module Unibits
         char = "TAG " + char.tr(TAGS, ASCII_CHARS)
       elsif char_info.category == "Mn"
         char = "◌" + char
+      elsif char_info.category == "Me"
+        char = " " + char
       else
         char = INTERESTING_CODEPOINTS[char.ord] || char
       end
