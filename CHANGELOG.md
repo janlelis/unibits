@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.1.2
+
+* Add mongolian free variation selectors to interesting codepoints list
+
 ### 2.1.1
 
 * Proper UTF-32 validness / invalid codepoint highlighting, see https://bugs.ruby-lang.org/issues/13292

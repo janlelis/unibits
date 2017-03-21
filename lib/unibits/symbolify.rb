@@ -79,6 +79,10 @@ module Unibits
     }
 
     INTERESTING_CODEPOINTS = {
+      0x180B => "FVS1",
+      0x180C => "FVS2",
+      0x180D => "FVS3",
+
       0x200E => "LRM",
       0x200F => "RLM",
       0x202A => "LRE",
