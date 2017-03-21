@@ -4,6 +4,7 @@
 
 * Add mongolian free variation selectors and combining grapheme joiner to interesting codepoints list
 * Green highlighting of "marks" in Unicode
+* Always use dotted circle for non-spacing marks
 
 ### 2.1.1
 

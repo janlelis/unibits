@@ -401,9 +401,8 @@ module Unibits
     def self.unicode(char, char_info)
       return "n/a" if !char_info.assigned?
 
-      char = char.dup
+      char = char.dup.encode("UTF-8")
       ord = char.ord
-      encoding = char_info.encoding
 
       if char_info.delete?
         char = CONTROL_DELETE_SYMBOL
@@ -412,15 +411,16 @@ module Unibits
       elsif char_info.c1?
         char = CONTROL_C1_NAMES[ord]
       elsif char_info.blank?
-        char = "]".encode(encoding) + char + "[".encode(encoding)
+        char = "]" + char + "["
       elsif ord > 917536 && ord < 917631
-        char = "TAG ".encode(encoding) +
-               char.tr(TAGS.encode(encoding), ASCII_CHARS.encode(encoding))
+        char = "TAG " + char.tr(TAGS, ASCII_CHARS)
+      elsif char_info.category == "Mn"
+        char = "◌" + char
       else
         char = INTERESTING_CODEPOINTS[char.ord] || char
       end
 
-      char.encode("UTF-8")
+      char
     end
 
     def self.byte(char, char_info)
