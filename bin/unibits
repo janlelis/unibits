@@ -56,6 +56,7 @@ if argv[:help]
   #{Paint["control",    Unibits::COLORS[:control]]}
   #{Paint["blank",      Unibits::COLORS[:blank]]}
   #{Paint["format",     Unibits::COLORS[:format]]}
+  #{Paint["mark",       Unibits::COLORS[:mark]]}
 
   #{Paint["STATS", :underline]}
 

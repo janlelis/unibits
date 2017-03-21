@@ -30,6 +30,7 @@ module Unibits
     control: "#0000FF",
     blank: "#33AADD",
     format: "#FF00FF",
+    mark: "#228822",
   }
 
   DEFAULT_TERMINAL_WIDTH = 80
@@ -244,6 +245,8 @@ module Unibits
       COLORS[:blank]
     elsif char_info.format?
       COLORS[:format]
+    elsif char_info.unicode? && char_info.category[0] == "M"
+      COLORS[:mark]
     else
       random_color
     end

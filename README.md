@@ -16,6 +16,7 @@ Each byte of the given string is highlighted using the following mechanism (char
 - Blue for control characters
 - Light blue for blanks
 - Non-control formatting characters in pink
+- Green for marks (Unicode only)
 - Random color for all other characters
 
 ## Setup

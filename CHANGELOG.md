@@ -1,8 +1,9 @@
 ## CHANGELOG
 
-### 2.1.2
+### 2.2.0
 
 * Add mongolian free variation selectors and combining grapheme joiner to interesting codepoints list
+* Green highlighting of "marks" in Unicode
 
 ### 2.1.1
 
