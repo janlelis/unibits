@@ -2,7 +2,7 @@
 
 ### 2.1.2
 
-* Add mongolian free variation selectors to interesting codepoints list
+* Add mongolian free variation selectors and combining grapheme joiner to interesting codepoints list
 
 ### 2.1.1
 

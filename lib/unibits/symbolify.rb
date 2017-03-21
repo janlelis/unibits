@@ -95,6 +95,8 @@ module Unibits
       0x2068 => "FSI",
       0x2069 => "PDI",
 
+      0x034F => "CGJ",
+
       0xFE00 => "VS1",
       0xFE01 => "VS2",
       0xFE02 => "VS3",
