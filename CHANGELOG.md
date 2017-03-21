@@ -6,6 +6,7 @@
 * Green highlighting of "marks" in Unicode
 * Always use dotted circle for non-spacing marks
 * Always prepend enclosing marks with a space
+* Update characteristics gem (includes new blanks and UTF-8 dialects with japanese emojis)
 
 ### 2.1.1
 
