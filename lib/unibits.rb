@@ -10,6 +10,7 @@ module Unibits
   SUPPORTED_ENCODINGS = Encoding.name_list.grep(
     Regexp.union(
       /^UTF-8$/,
+      /^UTF8-/,
       /^UTF-...E$/,
       /^ASCII-8BIT$/,
       /^US-ASCII$/,
@@ -101,7 +102,7 @@ module Unibits
             case encoding_name
             when "US-ASCII"
               codepoint = "invalid"
-            when "UTF-8"
+            when "UTF-8", /^UTF8/
               # this tries to detect what is wrong with this utf-8 encoded string
               # sorry for this mess
               case char.unpack("B*")[0]
@@ -270,7 +271,7 @@ module Unibits
       when 'ASCII-8BIT'
         bin_byte_1 = ""
         bin_byte_2 = bin_byte_complete
-      when 'UTF-8'
+      when 'UTF-8', /^UTF8/
         if byteindex == 0
           if bin_byte_complete =~ /^(0|1{2,4}0)([01]+)$/
             bin_byte_1 = $1
