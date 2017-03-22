@@ -4,6 +4,8 @@
 
 * More consistent handling of bidi controls (always symbolify with alias, but highlight ALM, RLM, LRM as blanks)
 * Highlight control chars that are also blanks as blank
+* Highlight CGJ as blank
+* Highlight NEL as blank (only in Unicode)
 
 ### 2.2.0
 

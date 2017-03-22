@@ -98,8 +98,6 @@ module Unibits
       0x180C => "FVS2",
       0x180D => "FVS3",
 
-      0x034F => "CGJ",
-
       0xFE00 => "VS1",
       0xFE01 => "VS2",
       0xFE02 => "VS3",
@@ -415,14 +413,14 @@ module Unibits
         char = CONTROL_C1_NAMES[ord]
       elsif char_info.bidi_control?
         char = BIDI_CONTROL_NAMES[ord]
-      elsif char_info.blank?
-        char = "]" + char + "["
-      elsif ord > 917536 && ord < 917631
-        char = "TAG " + char.tr(TAGS, ASCII_CHARS)
       elsif char_info.category == "Mn"
         char = "◌" + char
       elsif char_info.category == "Me"
         char = " " + char
+      elsif char_info.blank?
+        char = "]" + char + "["
+      elsif ord > 917536 && ord < 917631
+        char = "TAG " + char.tr(TAGS, ASCII_CHARS)
       else
         char = INTERESTING_CODEPOINTS[char.ord] || char
       end
