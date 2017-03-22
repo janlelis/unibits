@@ -6,6 +6,7 @@
 * Highlight control chars that are also blanks as blank
 * Highlight CGJ as blank
 * Highlight NEL as blank (only in Unicode)
+* Add Unicode version to `unibits --version` command
 
 ### 2.2.0
 

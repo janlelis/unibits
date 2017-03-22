@@ -25,6 +25,7 @@ argv = Rationalist.parse(
 
 if argv[:version]
   puts "unibits #{Unibits::VERSION} by #{Paint["J-_-L", :bold]} <https://github.com/janlelis/unibits>"
+  puts "Unicode version is #{Unibits::UNICODE_VERSION}"
   exit(0)
 end
 
