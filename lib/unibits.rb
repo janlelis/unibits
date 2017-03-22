@@ -240,10 +240,10 @@ module Unibits
       COLORS[:invalid]
     elsif !char_info.assigned?
       COLORS[:unassigned]
-    elsif char_info.control?
-      COLORS[:control]
     elsif char_info.blank?
       COLORS[:blank]
+    elsif char_info.control?
+      COLORS[:control]
     elsif char_info.format?
       COLORS[:format]
     elsif char_info.unicode? && char_info.category[0] == "M"

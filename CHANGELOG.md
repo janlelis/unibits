@@ -1,8 +1,9 @@
 ## CHANGELOG
 
-### 2.3.1
+### 2.3.0
 
 * More consistent handling of bidi controls (always symbolify with alias, but highlight ALM, RLM, LRM as blanks)
+* Highlight control chars that are also blanks as blank
 
 ### 2.2.0
 
