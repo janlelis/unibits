@@ -78,11 +78,8 @@ module Unibits
       0x9F => "APC",
     }
 
-    INTERESTING_CODEPOINTS = {
-      0x180B => "FVS1",
-      0x180C => "FVS2",
-      0x180D => "FVS3",
-
+    BIDI_CONTROL_NAMES = {
+      0x061C => "ALM",
       0x200E => "LRM",
       0x200F => "RLM",
       0x202A => "LRE",
@@ -94,6 +91,12 @@ module Unibits
       0x2067 => "RLI",
       0x2068 => "FSI",
       0x2069 => "PDI",
+    }
+
+    INTERESTING_CODEPOINTS = {
+      0x180B => "FVS1",
+      0x180C => "FVS2",
+      0x180D => "FVS3",
 
       0x034F => "CGJ",
 
@@ -410,6 +413,8 @@ module Unibits
         char = CONTROL_C0_SYMBOLS[ord]
       elsif char_info.c1?
         char = CONTROL_C1_NAMES[ord]
+      elsif char_info.bidi_control?
+        char = BIDI_CONTROL_NAMES[ord]
       elsif char_info.blank?
         char = "]" + char + "["
       elsif ord > 917536 && ord < 917631

@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'paint', '>= 0.9', '< 3.0'
   gem.add_dependency 'unicode-display_width', '~> 1.1'
-  gem.add_dependency 'characteristics', '~> 0.4'
+  gem.add_dependency 'characteristics', '~> 0.5'
   gem.add_dependency 'rationalist', '~> 2.0'
 
   gem.required_ruby_version = "~> 2.0"

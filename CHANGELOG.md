@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.3.1
+
+* More consistent handling of bidi controls (always symbolify with alias, but highlight ALM, RLM, LRM as blanks)
+
 ### 2.2.0
 
 * Add mongolian free variation selectors and combining grapheme joiner to interesting codepoints list
