@@ -13,8 +13,8 @@ Each byte of the given string is highlighted using the following mechanism (char
 
 - Red for invalid bytes
 - Orange for unassigned bytes/characters
-- Blue for control characters
 - Light blue for blanks
+- Blue for control characters
 - Non-control formatting characters in pink
 - Green for marks (Unicode only)
 - Random color for all other characters

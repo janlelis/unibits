@@ -54,8 +54,8 @@ if argv[:help]
 
   #{Paint["invalid",    Unibits::COLORS[:invalid]]}
   #{Paint["unassigned", Unibits::COLORS[:unassigned]]}
-  #{Paint["control",    Unibits::COLORS[:control]]}
   #{Paint["blank",      Unibits::COLORS[:blank]]}
+  #{Paint["control",    Unibits::COLORS[:control]]}
   #{Paint["format",     Unibits::COLORS[:format]]}
   #{Paint["mark",       Unibits::COLORS[:mark]]}
 
