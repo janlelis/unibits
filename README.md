@@ -113,6 +113,7 @@ Example in Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'ascii'
 Also see
 
 - [Ruby's Encoding class](https://ruby-doc.org/core/Encoding.html)
+- [Symbolify gem](https://github.com/janlelis/symbolify)
 - [Characteristics gem](https://github.com/janlelis/characteristics)
 - [UTF-8 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-8#Description)
 - [UTF-16 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-16#Description)
