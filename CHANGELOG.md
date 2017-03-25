@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+### 2.4.0
+
+* Extract symbolification logic into extra [symbolify](https://github.com/janlelis/symbolify) gem (includes fixes and non-character detection)
+* Update characteristics gem (includes a new blank)
+
 ### 2.3.0
 
 * More consistent handling of bidi controls (always symbolify with alias, but highlight ALM, RLM, LRM as blanks)

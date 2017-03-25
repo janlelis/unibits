@@ -1,10 +1,10 @@
 require_relative "unibits/version"
-require_relative "unibits/symbolify"
 
 require "io/console"
 require "paint"
 require "unicode/display_width"
 require "characteristics"
+require "symbolify"
 
 module Unibits
   SUPPORTED_ENCODINGS = Encoding.name_list.grep(
