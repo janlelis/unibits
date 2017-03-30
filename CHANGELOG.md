@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.4.1
+
+* Double check UTF-32 only on Ruby versions which contain the bug
+
 ### 2.4.0
 
 * Extract symbolification logic into extra [symbolify](https://github.com/janlelis/symbolify) gem (includes fixes and non-character detection)

@@ -81,7 +81,17 @@ module Unibits
     puts
     string.each_char{ |char|
       char_info = Characteristics.create_for_type(char, type)
-      double_check_utf32_validness!(char, char_info)
+
+      if  RUBY_VERSION >= "2.4.1" ||
+          RUBY_VERSION < "2.4.0" && RUBY_VERSION >= "2.3.4" ||
+          RUBY_VERSION < "2.3.0" && RUBY_VERSION >= "2.2.7" ||
+          char_info.encoding.name[0, 6] != "UTF-32" ||
+          !char_info.valid?
+        # bug is fixed or not relevant
+      else
+        double_check_utf32_validness!(char, char_info)
+      end
+
       current_color = determine_char_color(char_info)
 
       current_encoding_error = nil if char_info.valid?
@@ -315,7 +325,6 @@ module Unibits
   end
 
   def self.double_check_utf32_validness!(char, char_info)
-    return if RUBY_VERSION > "2.4.0" || char_info.encoding.name[0, 6] != "UTF-32" || !char_info.valid?
     byte_values = char.b.unpack("C*")
     le = char_info.encoding.name == 'UTF-32LE'
     if  byte_values[le ? 2 : 1] > 16 ||
