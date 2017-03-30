@@ -22,6 +22,7 @@ module Unibits
       /^TIS-620$/,
       /^Windows-874$/,
       /^KOI8/,
+      /^GB1988$/,
     )
   ).sort.freeze
 

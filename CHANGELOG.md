@@ -1,8 +1,10 @@
 ## CHANGELOG
 
-### 2.4.1
+### 2.5.0
 
 * Double check UTF-32 only on Ruby versions which contain the bug
+* Bump characteristics dependency
+  * Allow GB1988 encoding (7bit ascii-like)
 
 ### 2.4.0
 

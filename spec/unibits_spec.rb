@@ -67,6 +67,13 @@ describe Unibits do
       result.must_match "01000011"
     end
 
+    it "works with GB1988" do
+      result = Paint.unpaint(Unibits.visualize("ASCII string".force_encoding('GB1988')))
+      result.must_match "C"
+      result.must_match "43"
+      result.must_match "01000011"
+    end
+
     it "works with 'ISO-8859-X' encodings" do
       string = "\xBC Idiosyncr\xE4tic\n\x91".force_encoding("ISO-8859-1")
       result = Paint.unpaint(Unibits.visualize(string))

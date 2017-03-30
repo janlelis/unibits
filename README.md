@@ -5,7 +5,7 @@ Ruby library and CLI command that visualizes various Unicode and ASCII/single by
 - Makes analyzing encodings easier
 - Helps you with debugging strings
 - Highlights invalid/special/blank bytes/characters/codepoints
-- Supports *UTF-8*, *UTF-16LE*/*UTF-16BE*, *UTF-32LE*/*UTF-32BE*, *ISO-8859-X*, *Windows-125X*, *IBMX*, *CP85X*, *macX*, *TIS-620*/*Windows-874*, *KOI8-R*/*KOI8-U*, 7-Bit *ASCII*, and arbitrary *BINARY* data
+- Supports *UTF-8*, *UTF-16LE*/*UTF-16BE*, *UTF-32LE*/*UTF-32BE*, *ISO-8859-X*, *Windows-125X*, *IBMX*, *CP85X*, *macX*, *TIS-620*/*Windows-874*, *KOI8-R*/*KOI8-U*, 7-Bit *ASCII*/*GB1988*, and arbitrary *BINARY* data
 
 ## Color Coding
 
