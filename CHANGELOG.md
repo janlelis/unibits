@@ -3,6 +3,9 @@
 ### 2.5.0
 
 * Double check UTF-32 only on Ruby versions which contain the bug
+* Bump symbolify dependency
+  * Add special characters (U+FFF9 - U+FFFC)
+  * Non-control separators return ⏎
 * Bump characteristics dependency
   * Allow GB1988 encoding (7bit ascii-like)
 
