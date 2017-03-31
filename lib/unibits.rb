@@ -28,11 +28,12 @@ module Unibits
 
   COLORS = {
     invalid: "#FF0000",
-    unassigned: "#FF5500",
     control: "#0000FF",
     blank: "#33AADD",
     format: "#FF00FF",
     mark: "#228822",
+    unassigned: "#FF5500",
+    ignorable: "#FFAA00",
   }
 
   DEFAULT_TERMINAL_WIDTH = 80
@@ -250,7 +251,11 @@ module Unibits
     if !char_info.valid?
       COLORS[:invalid]
     elsif !char_info.assigned?
-      COLORS[:unassigned]
+      if char_info.unicode? && char_info.ignorable?
+        COLORS[:ignorable]
+      else
+        COLORS[:unassigned]
+      end
     elsif char_info.blank?
       COLORS[:blank]
     elsif char_info.control?

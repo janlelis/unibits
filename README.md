@@ -12,12 +12,13 @@ Ruby library and CLI command that visualizes various Unicode and ASCII/single by
 Each byte of the given string is highlighted using the following mechanism (characters -> codepoints):
 
 - Red for invalid bytes
-- Orange for unassigned bytes/characters
 - Light blue for blanks
 - Blue for control characters
 - Non-control formatting characters in pink
 - Green for marks (Unicode only)
-- Random color for all other characters
+- Orange for unassigned codepoints
+- Lighter orange for unassigned codepoints which are also ignorable
+- Random color for all other codepoints
 
 ## Setup
 

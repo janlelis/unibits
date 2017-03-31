@@ -3,6 +3,7 @@
 ### 2.5.0
 
 * Double check UTF-32 only on Ruby versions which contain the bug
+* Highlight unassigned codepoints which are ignorable
 * Bump symbolify dependency
   * Add special characters (U+FFF9 - U+FFFC)
   * Non-control separators return ⏎
