@@ -44,8 +44,9 @@ if argv[:help]
   --convert <encoding>  | -c | which encoding to convert to (if possible)
   --width <n>           | -w | force a specific number of terminal columns
   --no-stats            |    | no stats header with length info
-  --version             |    | displays version of unibits
   --wide-ambiguous      |    | ambiguous characters
+  --help                |    | this help page
+  --version             |    | displays version of unibits
 
   #{Paint["ENCODINGS", :underline]}
 
@@ -59,6 +60,8 @@ if argv[:help]
   #{Paint["mark",       Unibits::COLORS[:mark]]}
   #{Paint["unassigned", Unibits::COLORS[:unassigned]]}
   #{Paint["unassigned and ignorable", Unibits::COLORS[:ignorable]]}
+
+  random color for other characters
 
   #{Paint["STATS", :underline]}
 
