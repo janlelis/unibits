@@ -39,17 +39,21 @@ module Unibits
   DEFAULT_TERMINAL_WIDTH = 80
 
   def self.of(string, encoding: nil, convert: nil, stats: true, wide_ambiguous: false, width: nil)
-    if !string || string.empty?
-      raise ArgumentError, "no data given to unibits"
-    end
+    string = convert_to_encoding_or_raise(string, encoding, convert)
+
+    puts stats(string, wide_ambiguous: wide_ambiguous) if stats
+    puts visualize(string, wide_ambiguous: wide_ambiguous, width: width)
+  end
+
+  def self.convert_to_encoding_or_raise(string, encoding, convert)
+    raise ArgumentError, "no data given to unibits" if !string || string.empty?
 
     string = string.dup.force_encoding(encoding) if encoding
     string = string.encode(convert) if convert
 
     case string.encoding.name
     when *SUPPORTED_ENCODINGS
-      puts stats(string, wide_ambiguous: wide_ambiguous) if stats
-      puts visualize(string, wide_ambiguous: wide_ambiguous, width: width)
+      string
     when 'UTF-16', 'UTF-32'
       raise ArgumentError, "unibits only supports #{string.encoding.name} with specified endianess, please use #{string.encoding.name}LE or #{string.encoding.name}BE"
     else
