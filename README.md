@@ -20,6 +20,8 @@ Each byte of the given string is highlighted using the following mechanism (char
 - Lighter orange for unassigned codepoints which are also ignorable
 - Random color for all other codepoints
 
+The same colors are used in the higher-level companion tool [uniscribe](https://github.com/janlelis/uniscribe).
+
 ## Setup
 
 Make sure you have Ruby installed and installing gems works properly. Then do:
@@ -111,16 +113,20 @@ Example in Ruby: `unibits "🌫 Idio﻿syncrätic ℜսᖯʏ", encoding: 'ascii'
 
 ## Notes
 
-Also see
+More info
 
 - [Ruby's Encoding class](https://ruby-doc.org/core/Encoding.html)
-- [Symbolify gem](https://github.com/janlelis/symbolify)
-- [Characteristics gem](https://github.com/janlelis/characteristics)
 - [UTF-8 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-8#Description)
 - [UTF-16 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-16#Description)
 - [UTF-32 (Wikipedia)](https://en.wikipedia.org/wiki/UTF-32)
 - [Difference between BINARY and ASCII](http://idiosyncratic-ruby.com/56-us-ascii-8bit.html)
-- [Unicode Micro Libraries for Ruby](https://github.com/janlelis/unicode-x)
+
+Related gems
+
+- [uniscribe](https://github.com/janlelis/uniscribe)
+- [unicopy](https://github.com/janlelis/unicopy)
+- [symbolify](https://github.com/janlelis/symbolify)
+- [characteristics](https://github.com/janlelis/characteristics)
 
 Lots of thanks to @damienklinnert for the motivation and inspiration required to build this! 🎆
 
