@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.6.0
+
+* Support Unicode 10.0
+
 ### 2.5.0
 
 * Double check UTF-32 only on Ruby versions which contain the bug
