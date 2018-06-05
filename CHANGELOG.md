@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### Next
+
+* Unicode 11
+
 ### 2.6.0
 
 * Support Unicode 10.0
