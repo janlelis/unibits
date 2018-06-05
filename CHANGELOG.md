@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### Next
+### 2.7.0
 
 * Unicode 11
 
