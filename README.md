@@ -1,4 +1,4 @@
-# unibits | Reveal the Unicode [![[version]](https://badge.fury.io/rb/unibits.svg)](http://badge.fury.io/rb/unibits)  [![[travis]](https://travis-ci.org/janlelis/unibits.svg)](https://travis-ci.org/janlelis/unibits)
+# unibits | Reveal the Unicode [![[version]](https://badge.fury.io/rb/unibits.svg)](https://badge.fury.io/rb/unibits)  [![[travis]](https://travis-ci.org/janlelis/unibits.svg)](https://travis-ci.org/janlelis/unibits)
 
 Ruby library and CLI command that visualizes various Unicode and ASCII/single byte encodings in the terminal:
 

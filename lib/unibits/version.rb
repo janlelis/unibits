@@ -1,4 +1,6 @@
+# frozen_string_literal: true
+
 module Unibits
-  VERSION = "2.7.0".freeze
-  UNICODE_VERSION = "11.0.0".freeze
+  VERSION = "2.8.0"
+  UNICODE_VERSION = "12.0.0"
 end
