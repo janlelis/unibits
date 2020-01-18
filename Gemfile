@@ -4,4 +4,4 @@ gemspec
 
 gem 'minitest'
 gem 'rake'
-gem 'irbtools', require: 'irbtools/binding'
+gem 'irbtools', require: 'irbtools/binding' unless RUBY_ENGINE == "jruby"
