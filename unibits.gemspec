@@ -5,10 +5,10 @@ require File.dirname(__FILE__) + "/lib/unibits/version"
 Gem::Specification.new do |gem|
   gem.name          = "unibits"
   gem.version       = Unibits::VERSION
-  gem.summary       = "Visualizes encodings."
+  gem.summary       = "Visualizes encodings"
   gem.description   = "Visualizes encodings in the terminal. Supports UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF-32BE, US-ASCII, ASCII-8BIT, and most of Rubies single-byte encodings. Comes as CLI command and as Ruby Kernel method."
   gem.authors       = ["Jan Lelis"]
-  gem.email         = ["mail@janlelis.de"]
+  gem.email         = ["hi@ruby.consulting"]
   gem.homepage      = "https://github.com/janlelis/unibits"
   gem.license       = "MIT"
 
@@ -23,5 +23,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'characteristics', '~> 1.2'
   gem.add_dependency 'rationalist', '~> 2.0'
 
-  gem.required_ruby_version = "~> 2.0"
+  gem.required_ruby_version = ">= 2.0"
 end
