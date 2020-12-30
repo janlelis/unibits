@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### 2.9.0 (unreleased)
+### 2.9.0
 
 * Unicode 13
 * Improve terminal width detection / Windows support
