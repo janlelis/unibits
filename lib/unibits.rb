@@ -246,9 +246,9 @@ module Unibits
   end
 
   def self.determine_terminal_cols
-    STDIN.winsize[1] || DEFAULT_TERMINAL_WIDTH
-  rescue Errno::ENOTTY
-    return DEFAULT_TERMINAL_WIDTH
+    STDIN.winsize[1] || ENV['COLUMNS'] || DEFAULT_TERMINAL_WIDTH
+  rescue Errno::ENOTTY, Errno::EBADF
+    return ENV['COLUMNS'] || DEFAULT_TERMINAL_WIDTH
   end
 
   def self.determine_char_color(char_info)

@@ -3,6 +3,7 @@
 ### 2.9.0 (unreleased)
 
 * Unicode 13
+* Improve terminal width detection / Windows support
 
 ### 2.8.0
 
