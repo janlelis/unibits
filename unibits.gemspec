@@ -18,9 +18,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'paint', '>= 0.9', '< 3.0'
-  gem.add_dependency 'unicode-display_width', '~> 2.0'
+  gem.add_dependency 'unicode-display_width', '~> 2.1'
   gem.add_dependency 'symbolify', '~> 1.4'
-  gem.add_dependency 'characteristics', '~> 1.3'
+  gem.add_dependency 'characteristics', '~> 1.4'
   gem.add_dependency 'rationalist', '~> 2.0', '>= 2.0.1'
 
   gem.required_ruby_version = ">= 2.0"
