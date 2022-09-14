@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### 2.11.0 (unreleased)
+### 2.11.0
 
 * Unicode 15
 
