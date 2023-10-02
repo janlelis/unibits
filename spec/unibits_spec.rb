@@ -213,20 +213,21 @@ describe Unibits do
     end
 
     describe "invalid UTF-16 encodings" do
-      it "- incomplete number of bytes (1/2)" do
-        string = "a".b.force_encoding("UTF-16LE")
-        result = Paint.unpaint(Unibits.visualize(string))
-        result.must_match "incompl."
-        result.must_match "�"
-      end
+      unless RUBY_ENGINE === "truffleruby"
+        it "- incomplete number of bytes (1/2)" do
+          string = "a".b.force_encoding("UTF-16LE")
+          result = Paint.unpaint(Unibits.visualize(string))
+          result.must_match "incompl."
+          result.must_match "�"
+        end
 
-      it "- incomplete number of bytes (2/2)" do
-        string = "🌫".b[0..-2].force_encoding("UTF-16LE")
-        result = Paint.unpaint(Unibits.visualize(string))
-        result.must_match "incompl."
-        result.must_match "�"
+        it "- incomplete number of bytes (2/2)" do
+          string = "🌫".b[0..-2].force_encoding("UTF-16LE")
+          result = Paint.unpaint(Unibits.visualize(string))
+          result.must_match "incompl."
+          result.must_match "�"
+        end
       end
-
       it "- only lower half surrogate" do
         string = "\x3C\xD8\x2Ba".force_encoding("UTF-16LE")
         result = Paint.unpaint(Unibits.visualize(string))
@@ -245,25 +246,27 @@ describe Unibits do
     describe "invalid UTF-32 encodings" do
       # please note, currently, too large codepoints and encoded utf16 surrogates are treated as valid encodings
 
-      it "- incomplete number of bytes (1/3)" do
-        string = "a".b.force_encoding("UTF-32LE")
-        result = Paint.unpaint(Unibits.visualize(string))
-        result.must_match "incompl."
-        result.must_match "�"
-      end
+      unless RUBY_ENGINE === "truffleruby"
+        it "- incomplete number of bytes (1/3)" do
+          string = "a".b.force_encoding("UTF-32LE")
+          result = Paint.unpaint(Unibits.visualize(string))
+          result.must_match "incompl."
+          result.must_match "�"
+        end
 
-      it "- incomplete number of bytes (2/3)" do
-        string = "🌫".b[0..-2].force_encoding("UTF-32LE")
-        result = Paint.unpaint(Unibits.visualize(string))
-        result.must_match "incompl."
-        result.must_match "�"
-      end
+        it "- incomplete number of bytes (2/3)" do
+          string = "🌫".b[0..-2].force_encoding("UTF-32LE")
+          result = Paint.unpaint(Unibits.visualize(string))
+          result.must_match "incompl."
+          result.must_match "�"
+        end
 
-      it "- incomplete number of bytes (3/3)" do
-        string = "🌫".b[0..-2].force_encoding("UTF-32LE")
-        result = Paint.unpaint(Unibits.visualize(string))
-        result.must_match "incompl."
-        result.must_match "�"
+        it "- incomplete number of bytes (3/3)" do
+          string = "🌫".b[0..-2].force_encoding("UTF-32LE")
+          result = Paint.unpaint(Unibits.visualize(string))
+          result.must_match "incompl."
+          result.must_match "�"
+        end
       end
 
       it "- too large codepoint (1/2)" do
