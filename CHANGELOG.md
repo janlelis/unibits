@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.13.0
+
+* Unicode 16
+
 ### 2.12.0
 
 * Unicode 15.1
