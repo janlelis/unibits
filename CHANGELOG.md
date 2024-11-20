@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.13.1
+
+- Allow unicode-display_width to be upgraded to next major version
+
 ### 2.13.0
 
 * Unicode 16

@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.metadata      = { "rubygems_mfa_required" => "true" }
 
   gem.add_dependency 'paint', '>= 0.9', '< 3.0'
-  gem.add_dependency 'unicode-display_width', '~> 2.6'
+  gem.add_dependency 'unicode-display_width', '>= 2.6', '< 4.0'
   gem.add_dependency 'symbolify', '~> 1.4'
   gem.add_dependency 'characteristics', '~> 1.7'
   gem.add_dependency 'rationalist', '~> 2.0', '>= 2.0.1'
