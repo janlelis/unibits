@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### 2.14.0 (unreleased)
+### 2.14.0
 
 - Unicode 17
 
