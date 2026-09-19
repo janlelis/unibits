@@ -12,7 +12,6 @@ jobs:
         - '3.4'
         - '3.3'
         - '3.2'
-        - '3.1'
         - jruby
         - truffleruby
         os:
@@ -38,7 +37,6 @@ jobs:
         - '3.4'
         - '3.3'
         - '3.2'
-        - '3.1'
         - jruby
     runs-on: windows-latest
     steps:
