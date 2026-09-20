@@ -61,21 +61,21 @@ describe Unibits do
     end
 
     it "works with ASCII" do
-      result = Paint.unpaint(Unibits.visualize("ASCII string".force_encoding('ASCII')))
+      result = Paint.unpaint(Unibits.visualize("ASCII string".dup.force_encoding('ASCII')))
       result.must_match "C"
       result.must_match "43"
       result.must_match "01000011"
     end
 
     it "works with GB1988" do
-      result = Paint.unpaint(Unibits.visualize("ASCII string".force_encoding('GB1988')))
+      result = Paint.unpaint(Unibits.visualize("ASCII string".dup.force_encoding('GB1988')))
       result.must_match "C"
       result.must_match "43"
       result.must_match "01000011"
     end
 
     it "works with 'ISO-8859-X' encodings" do
-      string = "\xBC Idiosyncr\xE4tic\n\x91".force_encoding("ISO-8859-1")
+      string = "\xBC Idiosyncr\xE4tic\n\x91".dup.force_encoding("ISO-8859-1")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "BC"  # ¼
       result.must_match "E4"  # ä
@@ -84,7 +84,7 @@ describe Unibits do
     end
 
     it "works with 'Windows-125X' encodings" do
-      string = "\xBC Idiosyncr\xE4tic\n\x81".force_encoding("Windows-1252")
+      string = "\xBC Idiosyncr\xE4tic\n\x81".dup.force_encoding("Windows-1252")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "BC"  # ¼
       result.must_match "E4"  # ä
@@ -93,7 +93,7 @@ describe Unibits do
     end
 
     it "works with 'IBMX' encodings" do
-      string = "\xFE Idiosyncr\x84tic\n".force_encoding("IBM437")
+      string = "\xFE Idiosyncr\x84tic\n".dup.force_encoding("IBM437")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "FE"  # ■
       result.must_match "84"  # ä
@@ -101,7 +101,7 @@ describe Unibits do
     end
 
     it "works with 'CP85X' encodings" do
-      string = "\xFE Idiosyncr\x84tic\n".force_encoding("CP850")
+      string = "\xFE Idiosyncr\x84tic\n".dup.force_encoding("CP850")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "FE"  # ■
       result.must_match "84"  # ä
@@ -109,7 +109,7 @@ describe Unibits do
     end
 
     it "works with 'macX' encodings" do
-      string = "\xBD Idiosyncr\x8Atic \x11 \xF0\n".force_encoding("macRoman")
+      string = "\xBD Idiosyncr\x8Atic \x11 \xF0\n".dup.force_encoding("macRoman")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "BD"   # Ω
       result.must_match "8A"   # ä
@@ -119,14 +119,14 @@ describe Unibits do
     end
 
     it "works with 'TIS-620/Windows-874' encodings" do
-      string = "\xA4 Idiosyncratic\n".force_encoding("TIS-620")
+      string = "\xA4 Idiosyncratic\n".dup.force_encoding("TIS-620")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "A4"  # ค
       result.must_match "␊"   # \n
     end
 
     it "works with 'KOI8-X' encodings" do
-      string = "\xE9\xE4\xE9\xEF\xF3\xF9\xEE\xE3\xF2\xE1\xF4\xE9\xE3\n".force_encoding("KOI8-R")
+      string = "\xE9\xE4\xE9\xEF\xF3\xF9\xEE\xE3\xF2\xE1\xF4\xE9\xE3\n".dup.force_encoding("KOI8-R")
       result = Paint.unpaint(Unibits.visualize(string))
       result.must_match "F9"  # Ы
       result.must_match "␊"   # \n
@@ -222,21 +222,21 @@ describe Unibits do
         end
 
         it "- incomplete number of bytes (2/2)" do
-          string = "🌫".b[0..-2].force_encoding("UTF-16LE")
+          string = "🌫".b[0..-2].dup.force_encoding("UTF-16LE")
           result = Paint.unpaint(Unibits.visualize(string))
           result.must_match "incompl."
           result.must_match "�"
         end
       end
       it "- only lower half surrogate" do
-        string = "\x3C\xD8\x2Ba".force_encoding("UTF-16LE")
+        string = "\x3C\xD8\x2Ba".dup.force_encoding("UTF-16LE")
         result = Paint.unpaint(Unibits.visualize(string))
         result.must_match "hlf.srg."
         result.must_match "�"
       end
 
       it "- only higher half surrogate" do
-        string = "\x3Ca\x2B\xDF".force_encoding("UTF-16LE")
+        string = "\x3Ca\x2B\xDF".dup.force_encoding("UTF-16LE")
         result = Paint.unpaint(Unibits.visualize(string))
         result.must_match "hlf.srg."
         result.must_match "�"
@@ -270,21 +270,21 @@ describe Unibits do
       end
 
       it "- too large codepoint (1/2)" do
-        string = "\x00\x00\x11\x00".force_encoding("UTF-32LE")
+        string = "\x00\x00\x11\x00".dup.force_encoding("UTF-32LE")
         result = Paint.unpaint(Unibits.visualize(string))
         result.must_match "�"
         result.must_match "toolarge"
       end
 
       it "- too large codepoint (2/2)" do
-        string = "\x00\x00\x00\x01".force_encoding("UTF-32LE")
+        string = "\x00\x00\x00\x01".dup.force_encoding("UTF-32LE")
         result = Paint.unpaint(Unibits.visualize(string))
         result.must_match "�"
         result.must_match "toolarge"
       end
 
       it "- has surrogate" do
-        string = "\x00\xD8\x00\x00".force_encoding("UTF-32LE")
+        string = "\x00\xD8\x00\x00".dup.force_encoding("UTF-32LE")
         result = Paint.unpaint(Unibits.visualize(string))
         result.must_match "�"
         result.must_match "sur.gate"
@@ -293,7 +293,7 @@ describe Unibits do
 
     describe "invalid ASCII encodings" do
       it "- contains bytes with 8th bit set" do
-        string = "abc\x80efg".force_encoding("ASCII")
+        string = "abc\x80efg".dup.force_encoding("ASCII")
         result = Paint.unpaint(Unibits.visualize(string))
         result.must_match "�"
         result.must_match /e.*f.*g/m

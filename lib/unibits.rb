@@ -214,7 +214,7 @@ module Unibits
             end
           end
 
-          cp_buffer[-1] << Paint[ codepoint.ljust(10), current_color, :bold ]
+          cp_buffer[-1] += Paint[ codepoint.ljust(10), current_color, :bold ]
 
           symbolified_char = Symbolify.symbolify(char, char_info)
 
@@ -224,17 +224,17 @@ module Unibits
             padding = 10 - symbolified_char.size
           end
 
-          enc_buffer[-1] << Paint[ symbolified_char, current_color ]
-          enc_buffer[-1] << " " * padding if padding > 0
+          enc_buffer[-1] += Paint[ symbolified_char, current_color ]
+          enc_buffer[-1] += " " * padding if padding > 0
         else
-          cp_buffer[-1]  << " " * 10
-          enc_buffer[-1] << " " * 10
+          cp_buffer[-1]  += " " * 10
+          enc_buffer[-1] += " " * 10
         end
 
-        hex_buffer[-1] << Paint[ ("%02X" % byte).ljust(10, " "), current_color ]
+        hex_buffer[-1] += Paint[ ("%02X" % byte).ljust(10, " "), current_color ]
 
-        bin_buffer[-1] << highlight_bits(byte, char, char_info, current_color, byteindex)
-        bin_buffer[-1] << "  "
+        bin_buffer[-1] += highlight_bits(byte, char, char_info, current_color, byteindex)
+        bin_buffer[-1] += "  "
       }
     }
 
@@ -328,10 +328,10 @@ module Unibits
       end
     end
 
-    res = ""
-    res << Paint[ bin_byte_1, current_color ]             unless !bin_byte_1 || bin_byte_1.empty?
-    res << Paint[ bin_byte_2, current_color, :underline ] unless !bin_byte_2 || bin_byte_2.empty?
-    res
+    [
+      ( Paint[ bin_byte_1, current_color ]             unless !bin_byte_1 || bin_byte_1.empty? ),
+      ( Paint[ bin_byte_2, current_color, :underline ] unless !bin_byte_2 || bin_byte_2.empty? ),
+    ].compact.join
   end
 
   def self.double_check_utf32_validness!(char, char_info)
