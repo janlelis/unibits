@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 2.15.0
+
+- Update dependencies to support Unicode 18
+
 ### 2.14.0
 
 - Unicode 17
