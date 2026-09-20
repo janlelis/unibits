@@ -130,4 +130,4 @@ Related gems
 
 Lots of thanks to @damienklinnert for the motivation and inspiration required to build this! 🎆
 
-Copyright (C) 2017-2024 Jan Lelis <https://janlelis.com>. Released under the MIT license.
+Copyright (C) 2017-2026 Jan Lelis <https://janlelis.com>. Released under the MIT license.

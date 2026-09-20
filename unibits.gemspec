@@ -5,8 +5,8 @@ require File.dirname(__FILE__) + "/lib/unibits/version"
 Gem::Specification.new do |gem|
   gem.name          = "unibits"
   gem.version       = Unibits::VERSION
-  gem.summary       = "CLI utility that visualizes a broad range of encodings of a string"
-  gem.description   = "CLI utility that Visualizes a broad range of encodings in the terminal. Supports UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF-32BE, US-ASCII, ASCII-8BIT, and a variety of single-byte encodings."
+  gem.summary       = "[Unicode 18] CLI utility that visualizes a broad range of encodings of a string"
+  gem.description   = "[Unicode 18] CLI utility that Visualizes a broad range of encodings in the terminal. Supports UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF-32BE, US-ASCII, ASCII-8BIT, and a variety of single-byte encodings."
   gem.authors       = ["Jan Lelis"]
   gem.email         = ["hi@ruby.consulting"]
   gem.homepage      = "https://github.com/janlelis/unibits"
